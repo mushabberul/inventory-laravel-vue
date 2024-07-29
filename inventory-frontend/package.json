@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vee-validate/rules": "^4.13.2",
+    "axios": "^1.7.2",
     "pinia": "^2.1.7",
     "vee-validate": "^4.13.2",
     "vue": "^3.4.29",
@@ -20,4 +21,3 @@
     "vite": "^5.3.1"
   }
 }
- 
