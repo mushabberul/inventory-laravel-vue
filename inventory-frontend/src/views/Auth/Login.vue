@@ -1,8 +1,8 @@
 <script setup>
 //All libary import
 import {useAuthStore} from '@/stores/auth';
-import {ref,reactive} form 'vue';
-import {useRouter} form 'vue-router';
+import {ref,reactive} from 'vue';
+import {useRouter} from 'vue-router';
 
 //All instance
 const authStore = useAuthStore();
