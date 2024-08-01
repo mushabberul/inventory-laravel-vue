@@ -1,9 +1,10 @@
-import { alpha_spaces, min_value } from '@vee-validate/rules';
+
 import {
     Form as VeeForm,
     Field as VeeField,
     ErrorMessage,
-    configure
+    configure,
+    defineRule
 } from 'vee-validate';
 
 import {
@@ -12,12 +13,11 @@ import {
     min,
     email,
     confirmed,
-    checkbox,
     alpha_spaces as alphaSpaces,
     max_value as maxVal,
     min_value as minVal,
     not_one_of as excluded
-} from 'vee-validate/rules'
+} from '@vee-validate/rules'
 
 export default{
     install(app){
@@ -31,7 +31,7 @@ export default{
         defineRule(`email`,email);
         defineRule(`alpha_spaces`,alphaSpaces);
         defineRule(`min_val`,minVal);
-        defineRule(`checkbox`,checkbox);
+      
         defineRule(`max_val`,maxVal);
         defineRule(`excluded`,excluded);
         defineRule(`password_mismatch`,confirmed);
@@ -48,7 +48,6 @@ export default{
                     max_value:`The field ${ctx.field} is to high`,
                     excluded:` You are not allowed to use this value for the field ${ctx.field}`,
                     password_mismatch:`The password don't match`,
-                    checkbox:`You must check a tarms of service`,
                 }
             }
         });

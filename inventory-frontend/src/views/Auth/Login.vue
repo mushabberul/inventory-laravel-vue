@@ -1,12 +1,14 @@
 <script setup>
 //All libary import
 import {useAuthStore} from '@/stores/auth';
-import {ref,reactive} from 'vue';
-import {useRouter} from 'vue-router';
+import {ref,reactive, inject} from 'vue';
+import { useRouter } from 'vue-router';
+
 
 //All instance
 const authStore = useAuthStore();
 const router = useRouter();
+const swal = inject('$swal');
 
 //All variable
 const loginForm = reactive({
@@ -14,9 +16,32 @@ const loginForm = reactive({
     password:null
 });
 
+
+const schema = reactive({
+    email:`required|email`,
+    password:`required`
+});
+
 //Methods
-const login = ()=>{
-    
+const  login = ()=>{
+    authStore.login(loginForm,(status)=>{
+      
+        if(status.success == 'success'){
+            swal({
+                icon:'success',
+                timer:1000,
+                title:authStore.message
+            });
+            router.push('/dashboard')
+        }else{
+            swal({
+                icon:`error`,
+                timer:1000,
+                title:authStore.message
+            })
+             router.push({name:'login'})
+        }
+    });
 }
 
 //Hooks & Computed
@@ -52,19 +77,20 @@ const login = ()=>{
                                         <h5 class="mb-0">Welcome</h5>
                                         <p class="text-muted mt-2">Sign in to continue to Inventroy.</p>
                                     </div>
-                                    <form class="mt-4 pt-2">
+                                    <vee-form class="mt-4 pt-2" @click="login" :validation-schema="schema">
                                         <div class="form-floating form-floating-custom mb-3">
-                                            <input type="text" class="form-control" id="input-username"
-                                                placeholder="Enter User Name">
-                                            <label for="input-username">Username</label>
+                                            <vee-field type="email" v-model="loginForm.email" name="email" class="form-control"
+                                                placeholder="Enter Email" />
+                                            <label for="input-username">Email</label>
                                             <div class="form-floating-icon">
                                                 <i class="uil uil-users-alt"></i>
                                             </div>
+                                            <ErrorMessage name="email" class="text-danger" />
                                         </div>
 
                                         <div class="form-floating form-floating-custom mb-3 auth-pass-inputgroup">
-                                            <input type="password" class="form-control" id="password-input"
-                                                placeholder="Enter Password">
+                                            <vee-field type="password" v-model="loginForm.password" class="form-control" id="password-input"
+                                                placeholder="Enter Password" name="password" />
                                             <button type="button"
                                                 class="btn btn-link position-absolute h-100 end-0 top-0"
                                                 id="password-addon">
@@ -74,6 +100,7 @@ const login = ()=>{
                                             <div class="form-floating-icon">
                                                 <i class="uil uil-padlock"></i>
                                             </div>
+                                            <ErrorMessage name="password" class="text-danger" />
                                         </div>
 
                                         <div class="form-check form-check-primary font-size-16 py-1">
@@ -89,10 +116,10 @@ const login = ()=>{
                                         </div>
 
                                         <div class="mt-3">
-                                            <button class="btn btn-primary w-100" type="submit">Log In</button>
+                                            <button class="btn btn-primary w-100" type="button">Log In</button>
                                         </div>
                                       
-                                    </form><!-- end form -->
+                                    </vee-form><!-- end form -->
                                 </div>
                             </div>
                         </div>

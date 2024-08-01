@@ -17,7 +17,7 @@ class LoginController extends Controller
 
 
         if($validator->fails()){
-            return response()->json($validator->errors());
+            return response()->json($validator->errors(),400);
         }
         $validated = $validator->validate();
 
@@ -25,7 +25,7 @@ class LoginController extends Controller
             $user = Auth::user();
             $token = $user->createToken('Sabbir')->plainTextToken;
             return response()->json([
-                'status'=>true,
+                'status'=>'success',
                 'message'=>'Login Successfully',
                 'data'=>[
                     'token'=>$token,
@@ -34,9 +34,9 @@ class LoginController extends Controller
                 ]);
         }else{
             return response()->json([
-                'status'=>false,
+                'status'=>'error',
                 'message'=>'Unauthenticated'
-                ]);
+                ],400);
         }
 
 
