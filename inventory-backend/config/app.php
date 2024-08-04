@@ -160,6 +160,11 @@ return [
          * Package Service Providers...
          */
 
+         /**
+          * Custom Service Provider
+          */
+          App\Providers\RepositoryServiceProvider::class,
+
         /*
          * Application Service Providers...
          */

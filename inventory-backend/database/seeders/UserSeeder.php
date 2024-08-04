@@ -18,14 +18,14 @@ class UserSeeder extends Seeder
         $user = [
             'role_id' => 2,
             'name' => "Admin",
-            'email' => "admin@sabbir.com",
+            'email' => "admin@gmail.com",
             'phone' => '1234567890',
             'nid' => null,
             'address' => null,
             'is_active' => true,
             'company_name' => null,
             'email_verified_at' => now(),
-            'password' => Hash::make('sabbir'),
+            'password' => Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
         User::insert($user);
