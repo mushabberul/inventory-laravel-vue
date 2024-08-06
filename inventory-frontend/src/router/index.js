@@ -11,7 +11,10 @@ const router = createRouter({
       component: DefaultLayout,
       meta:{requiresAuth:true},
       children:[
-        {path:'/dashboard',name:'dashboard',component: ()=>import('@/views/Dashboard.vue')}
+        {path:'/dashboard',name:'dashboard',component: ()=>import('@/views/Dashboard.vue')},
+        {path:'/category/index',name:'category.index',component: ()=>import('@/views/Category/Index.vue')},
+        {path:'/category/create',name:'category.create',component: ()=>import('@/views/Category/Create.vue')},
+        {path:'/caregory/edit',name:'category.edit',component: ()=>import('@/views/Category/Edit.vue')},
       ]
     },
     {

@@ -1,4 +1,3 @@
-
 <script setup>
 import ShortDashboard from './ShortDashboard.vue';
 import MenuBar from './MenuBar.vue';
@@ -12,21 +11,23 @@ import Notification from '@/components/Notification.vue';
             <div class="d-flex">
                 <!-- LOGO -->
                 <div class="navbar-brand-box">
-                    <RouterLink :to="{name:'dashboard'}" class="logo logo-dark">
+                    <RouterLink :to="{ name: 'dashboard' }" class="logo logo-dark">
                         <span class="logo-sm">
                             <img src="@/assets/images/logo-sm.svg" alt="" height="26">
                         </span>
                         <span class="logo-lg">
-                            <img src="@/assets/images/logo-sm.svg" alt="" height="26"> <span class="logo-txt">Inventory</span>
+                            <img src="@/assets/images/logo-sm.svg" alt="" height="26"> <span
+                                class="logo-txt">Inventory</span>
                         </span>
                     </RouterLink>
 
-                    <RouterLink :to="{name:'dashboard'}" class="logo logo-light">
+                    <RouterLink :to="{ name: 'dashboard' }" class="logo logo-light">
                         <span class="logo-sm">
                             <img src="@/assets/images/logo-sm.svg" alt="" height="26">
                         </span>
                         <span class="logo-lg">
-                            <img src="@/assets/images/logo-sm.svg" alt="" height="26"> <span class="logo-txt">Inventory</span>
+                            <img src="@/assets/images/logo-sm.svg" alt="" height="26"> <span
+                                class="logo-txt">Inventory</span>
                         </span>
                     </RouterLink>
                 </div>
@@ -58,9 +59,9 @@ import Notification from '@/components/Notification.vue';
                     </div>
                 </div>
 
-               
+
                 <!-- Notification -->
-                 <Notification />
+                <Notification />
 
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item noti-icon right-bar-toggle" id="right-bar-toggle">
@@ -69,7 +70,7 @@ import Notification from '@/components/Notification.vue';
                 </div>
 
                 <!-- Profile -->
-                 <Profile />
+                <Profile />
             </div>
         </div>
 
@@ -77,4 +78,3 @@ import Notification from '@/components/Notification.vue';
 
     </header>
 </template>
-

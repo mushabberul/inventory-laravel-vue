@@ -3,7 +3,7 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import { baseClient, inventoryAxiosClient } from '@/utils/systemaxios';
 
-export const useAuthStore = defineStore('auth', ({
+export const useAuthStore = defineStore('auth', {
     state:()=>({
         token:localStorage.getItem('token') || 0,
         username:localStorage.getItem('username') || 0,
@@ -48,4 +48,4 @@ export const useAuthStore = defineStore('auth', ({
         }
     }
      
-}))
+})
