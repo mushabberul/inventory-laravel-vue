@@ -1,20 +1,11 @@
-
-
-<template> 
+<template>
     <div id="layout-wrapper">
-        <NavbarView/>
+        <NavbarView />
         <div class="hori-overlay"></div>
 
         <div class="main-content">
-            <div class="page-content">
-                <div class="container-fluid">
-                    <!-- Content here -->
-                
-                       
-
-                     <router-view/>
-                </div>
-            </div>
+            <router-view />
+            
         </div>
     </div>
 </template>

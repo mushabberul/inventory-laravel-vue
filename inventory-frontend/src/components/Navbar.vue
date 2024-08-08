@@ -1,5 +1,5 @@
 <script setup>
-import ShortDashboard from './ShortDashboard.vue';
+
 import MenuBar from './MenuBar.vue';
 import Profile from '@/components/Profile.vue';
 import Notification from '@/components/Notification.vue';
@@ -74,7 +74,6 @@ import Notification from '@/components/Notification.vue';
             </div>
         </div>
 
-        <ShortDashboard />
 
     </header>
 </template>

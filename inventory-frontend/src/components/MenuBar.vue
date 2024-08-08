@@ -40,9 +40,6 @@
                                         Create</RouterLink>
                                     <RouterLink :to="{ name: 'category.index' }" class="dropdown-item" data-key="t-inbox">
                                         Inbox</RouterLink>
-                                    <RouterLink :to="{ name: 'category.edit' }" class="dropdown-item" data-key="t-inbox">
-                                        Edit</RouterLink>
-
                                 </div>
                             </div>
                         </div>

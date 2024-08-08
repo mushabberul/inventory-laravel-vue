@@ -1,51 +1,4 @@
-<script setup>
-//All libary import
-import {useAuthStore} from '@/stores/auth';
-import {ref,reactive, inject} from 'vue';
-import { useRouter } from 'vue-router';
 
-
-//All instance
-const authStore = useAuthStore();
-const router = useRouter();
-const swal = inject('$swal');
-
-//All variable
-const loginForm = reactive({
-    email:null,
-    password:null
-});
-
-
-const schema = reactive({
-    email:`required|email`,
-    password:`required`
-});
-
-//Methods
-const  login = ()=>{
-    authStore.login(loginForm,(status)=>{
-      
-        if(status.success == 'success'){
-            swal({
-                icon:'success',
-                timer:1000,
-                title:authStore.message
-            });
-            router.push('/dashboard')
-        }else{
-            swal({
-                icon:`error`,
-                timer:1000,
-                title:authStore.message
-            })
-             router.push({name:'login'})
-        }
-    });
-}
-
-//Hooks & Computed
-</script>
 <template>
     <div class="auth-bg-basic d-flex align-items-center min-vh-100">
         <div class="bg-overlay bg-light"></div>
@@ -77,7 +30,8 @@ const  login = ()=>{
                                         <h5 class="mb-0">Welcome</h5>
                                         <p class="text-muted mt-2">Sign in to continue to Inventroy.</p>
                                     </div>
-                                    <vee-form class="mt-4 pt-2" @click="login" :validation-schema="schema">
+                                    <vee-form class="mt-4 pt-2" @submit="login" :validation-schema="schema">
+
                                         <div class="form-floating form-floating-custom mb-3">
                                             <vee-field type="email" v-model="loginForm.email" name="email" class="form-control"
                                                 placeholder="Enter Email" />
@@ -116,7 +70,7 @@ const  login = ()=>{
                                         </div>
 
                                         <div class="mt-3">
-                                            <button class="btn btn-primary w-100" type="button">Log In</button>
+                                            <button class="btn btn-primary w-100" type="submit">Log In</button>
                                         </div>
                                       
                                     </vee-form><!-- end form -->
@@ -143,3 +97,53 @@ const  login = ()=>{
         <!-- end container fluid -->
     </div>
 </template>
+<script setup>
+//All libary import
+import {useAuthStore} from '@/stores/auth';
+import {ref,reactive, inject} from 'vue';
+import { useRouter } from 'vue-router';
+
+
+//All instance
+const authStore = useAuthStore();
+const router = useRouter();
+const swal = inject('$swal');
+
+//All variable
+const loginForm = reactive({
+    email:null,
+    password:null
+});
+
+
+const schema = reactive({
+    email:'required|email',
+    password:'required'
+});
+
+//Methods
+const  login = ()=>{
+    authStore.login(loginForm,(status)=>{
+     
+        if(status == 'success'){
+            
+            swal({
+                icon:'success',
+                timer:1000,
+                title:authStore.message
+            });
+            router.push({name:'dashboard'});
+            
+        }else{
+            swal({
+                icon:`error`,
+                timer:1000,
+                title:authStore.message
+            })
+             router.push({name:'login'})
+        }
+    });
+}
+
+//Hooks & Computed
+</script>

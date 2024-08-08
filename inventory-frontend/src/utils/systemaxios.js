@@ -1,26 +1,26 @@
-import axios from 'axios';
-import config from "./config";
+import axios from "axios";
+import config from '../utils/config';
 
-const baseClient = axios.create( {
+const baseClient = axios.create({
     baseURL: config.inventoryAPIHost,
-    header:{
-        "Accept":"application/json",
-        "Content-type":"application/json",
-        "X-Requestd-With":"XMLHttpRequest"
+    headers: {
+        "Accept": 'application/json',
+        "Content-Type": 'application/json',
+        "X-Requested-With": 'XMLHttpRequest'
     }
-})
+});
 
-const inventoryAxiosClient = axios.create( {
-    baseURL: config.inventoryAPIHost +'/api',
-    header:{
-        "Accept":"application/json",
-        "Content-type":"application/json",
-        "X-Requested-With":"XMLHttpRequest"
-    },
-    "Autharization":"Bearer"+config.apiToken
-})
+const inventoryAxiosClient = axios.create({
+    baseURL: config.inventoryAPIHost+'/api',
+    headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Authorization': 'Bearer '+config.apiToken
+    }
+});
 
-export{
+export {
     baseClient,
     inventoryAxiosClient
 }
