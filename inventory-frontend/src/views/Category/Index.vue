@@ -1,19 +1,39 @@
 <script setup>
 //All libery import
 import { useCategoryStore } from '@/stores/category';
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted,inject } from 'vue';
 import { useRouter } from 'vue-router';
 
 //All instance
 const categoryStore = useCategoryStore();
 const router = useRouter();
+const swal = inject('$swal');
+
+categoryStore.swal = swal;
 //All veriable
 
 //All methods
 
+const deleteCategory = (category_id,category_name)=>{
+    swal({
+        title:"Are you sure delete?",
+        text: category_name,
+        icon:"warning",
+        showCancelButton:true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+    }).then((result)=>{
+        if(result.isConfirmed){
+            categoryStore.deleteCategory(category_id);
+            categoryStore.getCategories(1,5,'');
+        }
+    });
+}
+
 //Hooks & Computed
 onMounted(()=>{
-    categoryStore.getAllCategories();
+    categoryStore.getCategories(1,5,'');
 });
 </script>
 <template>
@@ -27,7 +47,10 @@ onMounted(()=>{
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4>Category List</h4>
-                                <router-link :to="{ name: 'category.create' }">Create New</router-link>
+                                <router-link class="btn btn-success" :to="{ name: 'category.create' }">
+                                  
+                                    Create New
+                                </router-link>
                             </div>
                         </div>
                     </div>
@@ -39,7 +62,7 @@ onMounted(()=>{
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-md-8">
-                                    <span>Total Count: 12</span>
+                                    Total Count: <span class="">{{ categoryStore.pagination.totalCount }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="search" name="" placeholder="Search ..." class="form-control" id="">
@@ -55,7 +78,7 @@ onMounted(()=>{
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Serial</th>
                                     <th>Name</th>
                                     <th>Image</th>
                                     <th>Status</th>
@@ -63,12 +86,25 @@ onMounted(()=>{
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Hellow</td>
-                                    <td>Image Header</td>
-                                    <td>Active</td>
-                                    <td>edit</td>
+                                <tr v-for="(category,index) in categoryStore.categories">
+                                    <td>{{ index+1 }}</td>
+                                    <td>{{category.name}}</td>
+                                    <td>{{category.image}}</td>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                        <input @change="categoryStore.changeStatus(category.id)" class="form-check-input" type="checkbox" role="switch" :checked="category.status">
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <router-link :to="{name:'category.edit',params:{id:category.id}}" class="btn btn-warning">
+                                           
+                                            <i class='bx bxs-edit'></i>
+                                        </router-link>
+                                        <a @click.prevent="deleteCategory(category.id,category.name)" class="btn btn-danger ms-2">
+                                            <i class="bx bxs-trash"></i>
+                                        </a>
+                                        
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
