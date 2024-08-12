@@ -85,8 +85,7 @@ class CategoryRepository implements CategoryInterface
         $data->update([
             'name' => $request_data->name,
             'slug' => Str::slug($request_data->name),
-            'image' => $request_data->image,
-            'status' => $request_data->status,
+           
         ]);
         return $data;
     }

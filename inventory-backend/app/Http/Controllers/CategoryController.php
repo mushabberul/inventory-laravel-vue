@@ -73,7 +73,7 @@ class CategoryController extends Controller
     {
         $validated = Validator::make($request->all(),[
             'name' =>'required|string',
-            'slug' => 'required|string',
+            'slug' => 'nullable|string',
             'image' => 'nullable',
             'status' => 'nullable',
         ])->validate();
