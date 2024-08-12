@@ -1,8 +1,9 @@
 <script setup>
 //All libery import
 import { useCategoryStore } from '@/stores/category';
-import { ref, reactive, onMounted,inject } from 'vue';
+import { ref, reactive, onMounted,inject,watch } from 'vue';
 import { useRouter } from 'vue-router';
+import _ from 'lodash';
 
 //All instance
 const categoryStore = useCategoryStore();
@@ -11,6 +12,7 @@ const swal = inject('$swal');
 
 categoryStore.swal = swal;
 //All veriable
+const searchKeyword = ref('');
 
 //All methods
 
@@ -26,15 +28,24 @@ const deleteCategory = (category_id,category_name)=>{
     }).then((result)=>{
         if(result.isConfirmed){
             categoryStore.deleteCategory(category_id);
-            categoryStore.getCategories(1,5,'');
+            categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit);
         }
     });
 }
 
 //Hooks & Computed
 onMounted(()=>{
-    categoryStore.getCategories(1,5,'');
+    categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit);
 });
+
+watch(
+    searchKeyword,
+    _.debounce((current,previous)=>{
+ 
+    categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit,current);
+},500));
+
+
 </script>
 <template>
     <div class="page-content">
@@ -48,7 +59,7 @@ onMounted(()=>{
                             <div class="d-flex justify-content-between align-items-center">
                                 <h4>Category List</h4>
                                 <router-link class="btn btn-success" :to="{ name: 'category.create' }">
-                                  
+                                    <i class='bx bx-plus-circle'></i>
                                     Create New
                                 </router-link>
                             </div>
@@ -65,7 +76,7 @@ onMounted(()=>{
                                     Total Count: <span class="">{{ categoryStore.pagination.totalCount }}</span>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="search" name="" placeholder="Search ..." class="form-control" id="">
+                                    <input type="search" v-model="searchKeyword" placeholder="Search ..." class="form-control" id="">
                                 </div>
                             </div>
                         </div>
@@ -87,7 +98,7 @@ onMounted(()=>{
                             </thead>
                             <tbody>
                                 <tr v-for="(category,index) in categoryStore.categories">
-                                    <td>{{ index+1 }}</td>
+                                    <td>{{ (categoryStore.pagination.currentPage*categoryStore.limit)-categoryStore.limit + index +1 }}</td>
                                     <td>{{category.name}}</td>
                                     <td>{{category.image}}</td>
                                     <td>
@@ -108,6 +119,15 @@ onMounted(()=>{
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <v-pagination
+                            v-model="categoryStore.pagination.currentPage"
+                            :pages="categoryStore.pagination.lastPage"
+                            :range-size="1"
+                            active-color="#DCEDFF"
+                            @update:modelValue="categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit);"
+                        />
                     </div>
                 </div>
             </div>

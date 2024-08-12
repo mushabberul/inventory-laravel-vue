@@ -8,8 +8,9 @@ export const useCategoryStore = defineStore('category', {
         rowData: [],
         categories: [],
         category: null,
-        swal:null,
-        errors:null,
+        swal: null,
+        errors: null,
+        router: null,
         limit: config.defaultDataLimit || 10,
         pagination: {
             currentPage: 1,
@@ -21,31 +22,31 @@ export const useCategoryStore = defineStore('category', {
     getters: {},
     actions: {
         async getAllCategories() {
-            try{
-                const {data} = await inventoryAxiosClient.get('all-categories');
+            try {
+                const { data } = await inventoryAxiosClient.get('all-categories');
                 console.log(data);
                 this.rowData = data;
                 this.categories = data.data;
                 this.pagination.totalCount = data.metadata.count;
 
-            }catch(error){
+            } catch (error) {
                 console.log(error);
                 this.swal({
-                    icon:'error',
-                    title:'Something Went Wrong!',
+                    icon: 'error',
+                    title: 'Something Went Wrong!',
                     text: this.errors.message
                 });
                 this.errors = error.response.data;
             }
 
         },
-        async getCategories(page=1,limit = this.limit,search='') {
-            try{
-                const {data} = await inventoryAxiosClient.get('categories',{
-                    params:{
-                        'page':page,
-                        'per_page':limit,
-                        'search':search
+        async getCategories(page = 1, limit = this.limit, search = '') {
+            try {
+                const { data } = await inventoryAxiosClient.get('categories', {
+                    params: {
+                        'page': page,
+                        'per_page': limit,
+                        'search': search
                     }
                 });
                 console.log(data);
@@ -55,11 +56,11 @@ export const useCategoryStore = defineStore('category', {
                 this.pagination.currentPage = data.data.current_page;
                 this.pagination.lastPage = data.data.last_page;
 
-            }catch(error){
+            } catch (error) {
                 console.log(error);
-                 this.swal({
-                    icon:'error',
-                    title:'Something Went Wrong!',
+                this.swal({
+                    icon: 'error',
+                    title: 'Something Went Wrong!',
                     text: this.errors.message
                 });
 
@@ -67,45 +68,67 @@ export const useCategoryStore = defineStore('category', {
             }
         },
         async getCategory() { },
-        async storeCategory() { },
-        async updateCategory() { },
-        async deleteCategory(id) { 
-           try{
-            const {data} = inventoryAxiosClient.delete(`/categories/${id}`);
-            this.swal({
-                icon:'success',
-                title:'Deleted Successfully!',
-                timer:1000
-            });
-           }catch(error){
-            this.errors = error.response.data;
-            this.swal({
-                icon:'error',
-                title:'Something Went Wrong!',
-                timer:1000,
-                text: this.errors.message
-            });
-           }
-        },
-        async changeStatus(category_id) {
-            try{
-                const {data} = await inventoryAxiosClient.post(`/category-status/${category_id}`);
+        
+        async storeCategory(formData) {
+            
+            try {
+                const { data } = await inventoryAxiosClient.post('categories', formData);
                 console.log(data);
+                
                 this.swal({
-                    icon:'success',
-                    title:'Status Updated',
-                    timer:1000
+                    icon: 'success',
+                    title: 'Category Created Successfully',
+                    timer: 1000
                 });
-            }catch(error){
+                this.router.push({name:'category.index'});
+            } catch (error) {
                 console.log(error);
                 this.errors = error.response.data;
                 this.swal({
                     icon:'error',
-                    title:'Something Went Wrong',
-                    timer:100,
+                    title:'Something Went Wrong!',
                     text: this.errors.message
                 });
             }
-         }
+        },
+        async updateCategory() { },
+        async deleteCategory(id) {
+            try {
+                const { data } = inventoryAxiosClient.delete(`/categories/${id}`);
+                this.swal({
+                    icon: 'success',
+                    title: 'Deleted Successfully!',
+                    timer: 1000
+                });
+            } catch (error) {
+                this.errors = error.response.data;
+                this.swal({
+                    icon: 'error',
+                    title: 'Something Went Wrong!',
+                    timer: 1000,
+                    text: this.errors.message
+                });
+            }
+        },
+        async changeStatus(category_id) {
+            try {
+                const { data } = await inventoryAxiosClient.post(`/category-status/${category_id}`);
+                console.log(data);
+                this.swal({
+                    icon: 'success',
+                    title: 'Status Updated',
+                    timer: 1000
+                });
+            } catch (error) {
+                console.log(error);
+                this.errors = error.response.data;
+                this.swal({
+                    icon: 'error',
+                    title: 'Something Went Wrong',
+                    timer: 100,
+                    text: this.errors.message
+                });
+            }
+        }
     }
 });
