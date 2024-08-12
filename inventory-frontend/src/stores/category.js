@@ -11,6 +11,9 @@ export const useCategoryStore = defineStore('category', {
         swal: null,
         errors: null,
         router: null,
+        editForm:{
+            name:null,
+        },
         limit: config.defaultDataLimit || 10,
         pagination: {
             currentPage: 1,
@@ -67,7 +70,16 @@ export const useCategoryStore = defineStore('category', {
                 this.errors = error.response.data;
             }
         },
-        async getCategory() { },
+        async getCategory(category_id) {
+            try{
+                const {data} = await inventoryAxiosClient.get(`/categories/${category_id}`);
+                this.editForm.name = data.data.name;
+                console.log(data.data);
+                this.category = data.data;
+            }catch(error){
+                console.log(error);
+            }
+         },
         
         async storeCategory(formData) {
             
@@ -91,7 +103,27 @@ export const useCategoryStore = defineStore('category', {
                 });
             }
         },
-        async updateCategory() { },
+        async updateCategory(editFormData,category_id) {
+            try{
+                const {data} = await inventoryAxiosClient.put(`/categories/${category_id}`,editFormData);
+                console.log(data);
+                this.swal({
+                    icon:'success',
+                    title:'Updated Successfully',
+                    timer:1000
+                });
+                this.router.push({name:'category.index'});
+            }catch(error){
+                console.log(error);
+                this.errors = error.response.data;
+                this.swal({
+                    icon:'error',
+                    title:'Something Went Wrong!',
+                    timer:1000,
+                    text:this.errors.message
+                });
+            }
+         },
         async deleteCategory(id) {
             try {
                 const { data } = inventoryAxiosClient.delete(`/categories/${id}`);
