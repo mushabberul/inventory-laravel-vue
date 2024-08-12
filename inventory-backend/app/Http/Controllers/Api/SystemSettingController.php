@@ -25,7 +25,11 @@ class SystemSettingController extends Controller
      */
     public function index()
     {
-        return $this->success('All Data', $this->systemSettingRepository->all());
+        $data = $this->systemSettingRepository->all() ;
+        if(!$data){
+            return $this->error('Data Not Found');
+        }
+        return $this->success('All Data', $data);
     }
 
     /**
@@ -52,7 +56,7 @@ class SystemSettingController extends Controller
             $data = $this->systemSettingRepository->update($validated, $id);
             return $this->success('Updated Successfully', $data);
         } catch (Exception $e) {
-            dd($e);
+            return $this->error($e->getMessage());
         }
     }
 

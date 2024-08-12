@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\SystemSettingController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,5 +22,10 @@ Route::controller(LoginController::class)->group(function(){
 });
 
 Route::middleware('auth:sanctum')->group(function(){
-    Route::apiResource('system-setting',SystemSettingController::class);
+    //General Setting
+    Route::apiResource('system-setting',SystemSettingController::class)->only(['index','update']);
+    //Category
+    Route::post('category-status/{id}',[CategoryController::class,'status']);
+    Route::get('all-categories',[CategoryController::class,'allCategories']);
+    Route::apiResource('categories',CategoryController::class);
 });
