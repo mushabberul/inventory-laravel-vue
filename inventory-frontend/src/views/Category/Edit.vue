@@ -19,7 +19,7 @@ const schema = reactive({
 });
 //All methods
 const onFileChange = (e) => {
-    formData.image = e.target.files[0];
+    categoryStore.editForm.image = e.target.files[0];
 };
 const UpdateCategory = () => {
     categoryStore.updateCategory(categoryStore.editForm,route.params.id);

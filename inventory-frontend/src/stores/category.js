@@ -13,6 +13,8 @@ export const useCategoryStore = defineStore('category', {
         router: null,
         editForm:{
             name:null,
+            image:null,
+             _method: 'PUT'
         },
         limit: config.defaultDataLimit || 10,
         pagination: {
@@ -41,7 +43,6 @@ export const useCategoryStore = defineStore('category', {
                 });
                 this.errors = error.response.data;
             }
-
         },
         async getCategories(page = 1, limit = this.limit, search = '') {
             try {
@@ -84,7 +85,12 @@ export const useCategoryStore = defineStore('category', {
         async storeCategory(formData) {
             
             try {
-                const { data } = await inventoryAxiosClient.post('categories', formData);
+                const config = {
+                    headers:{
+                        'content-type':'multipart/form-data',
+                    }
+                }
+                const { data } = await inventoryAxiosClient.post('categories', formData,config);
                 console.log(data);
                 
                 this.swal({
@@ -105,7 +111,12 @@ export const useCategoryStore = defineStore('category', {
         },
         async updateCategory(editFormData,category_id) {
             try{
-                const {data} = await inventoryAxiosClient.put(`/categories/${category_id}`,editFormData);
+                const config = {
+                    headers:{
+                        'content-type':'multipart/form-data',
+                    }
+                }
+                const {data} = await inventoryAxiosClient.post(`/categories/${category_id}`,editFormData,config);
                 console.log(data);
                 this.swal({
                     icon:'success',

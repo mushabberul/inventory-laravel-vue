@@ -13,6 +13,7 @@ const swal = inject('$swal');
 categoryStore.swal = swal;
 //All veriable
 const searchKeyword = ref('');
+const base_url='http://127.0.0.1:8000';
 
 //All methods
 
@@ -100,7 +101,12 @@ watch(
                                 <tr v-for="(category,index) in categoryStore.categories">
                                     <td>{{ (categoryStore.pagination.currentPage*categoryStore.limit)-categoryStore.limit + index +1 }}</td>
                                     <td>{{category.name}}</td>
-                                    <td>{{category.image}}</td>
+                                    <td>
+                                        <template v-if="category.image != null">
+
+                                            <img width="100px" :src="base_url+category.image" alt="Category Image">
+                                        </template>
+                                    </td>
                                     <td>
                                         <div class="form-check form-switch">
                                         <input @change="categoryStore.changeStatus(category.id)" class="form-check-input" type="checkbox" role="switch" :checked="category.status">
