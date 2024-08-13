@@ -38,7 +38,6 @@ class CategoryController extends Controller
         $data = $this->cateogryRepository->all();
         $metadata['count']= count($data);
         return $this->success('Category List',$data,$metadata);
-
     }
 
     /**

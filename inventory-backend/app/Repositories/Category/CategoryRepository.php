@@ -3,10 +3,12 @@
 namespace App\Repositories\Category;
 
 use App\Models\Category;
+use App\Service\FileUploadedService;
 use Illuminate\Support\Str;
 
 class CategoryRepository implements CategoryInterface
 {
+    protected $path = 'public/category';
 
     /**
      * @return Mixed
@@ -60,6 +62,11 @@ class CategoryRepository implements CategoryInterface
             'slug' => Str::slug($request_data->name),
         ]);
 
+        $image_path = (new FileUploadedService())->fileUploaded($request_data,$this->path,$data);
+        $data->update([
+            'image'=>$image_path
+        ]);
+
         return $data;
     }
 
@@ -85,8 +92,14 @@ class CategoryRepository implements CategoryInterface
         $data->update([
             'name' => $request_data->name,
             'slug' => Str::slug($request_data->name),
-           
+
         ]);
+
+        $image_path = (new FileUploadedService())->fileUploaded($request_data,$this->path,$data);
+        $data->update([
+            'image'=>$image_path
+        ]);
+        
         return $data;
     }
 
