@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Repositories\Category;
+namespace App\Repositories\Supplier;
 
-use App\Models\Category;
-use App\Service\FileUploadedService;
 use Illuminate\Support\Str;
+use App\Models\User as Supplier;
+use App\Service\FileUploadedService;
+use Illuminate\Support\Facades\Hash;
+use App\Repositories\Supplier\SupplierInterface;
 
-class CategoryRepository implements CategoryInterface
+class SupplierRepository implements SupplierInterface
 {
-    protected $path = 'public/category';
+    protected $path = 'public/supplier';
 
     /**
      * @return Mixed
      */
     public function all()
     {
-        $data = Category::latest()->get();
+        $data = Supplier::latest()->get();
         return $data;
     }
 
@@ -24,9 +26,13 @@ class CategoryRepository implements CategoryInterface
      * @return mixed
      */
     public function allWithPagination($per_page){
-        $data = Category::latest('id')
+        $data = Supplier::latest('id')
         ->when(request('search'),function($query){
-            $query->where('name','like','%'.request('search').'%');
+            $query->where('name','like','%'.request('search').'%')
+            ->orWhere('email','like','%'.request('search').'%')
+            ->orWhere('phone','like','%'.request('search').'%')
+            ->orWhere('nid','like','%'.request('search').'%')
+            ->orWhere('company_name','like','%'.request('search').'%');
         })
         ->paginate($per_page);
         return $data;
@@ -37,7 +43,7 @@ class CategoryRepository implements CategoryInterface
      * @return mixed
      */
     public function status($id){
-        $data = Category::findOrFail($id);
+        $data = Supplier::findOrFail($id);
 
         if($data->status == 1){
             $data->status = 0;
@@ -57,12 +63,16 @@ class CategoryRepository implements CategoryInterface
     public function store($request_data)
     {
         $request_data = (object)$request_data;
-        $data = Category::create([
+        $data = Supplier::create([
+            'role_id' => Supplier::SIPPLIER,
             'name' => $request_data->name,
-            'slug' => Str::slug($request_data->name),
-            'code'=>$request_data->code
+            'email' => $request_data->email,
+            'phone' => $request_data->phone,
+            'nid' => $request_data->nid,
+            'address' => $request_data->address,
+            'company_name' => $request_data->company_name,
+            'password' => Hash::make('password'),
         ]);
-
         $image_path = (new FileUploadedService())->fileUploaded($request_data,$this->path,$data);
         $data->update([
             'file'=>$image_path
@@ -77,7 +87,7 @@ class CategoryRepository implements CategoryInterface
      */
     public function show($id)
     {
-        $data = Category::findOrFail($id);
+        $data = Supplier::findOrFail($id);
         return $data;
     }
 
@@ -88,12 +98,19 @@ class CategoryRepository implements CategoryInterface
      */
     public function update($request_data, $id)
     {
-        $request_data =(object)$request_data;
-        $data = Category::findOrFail($id);
+        $data = Supplier::findOrFail($id);
+        $request_data = (object)$request_data;
+
         $data->update([
+           'role_id' => Supplier::ADMIN,
             'name' => $request_data->name,
-            'slug' => Str::slug($request_data->name),
-            'code'=>$request_data->code,
+            'email' => $request_data->email,
+            'phone' => $request_data->phone,
+            'nid' => $request_data->nid,
+            'address' => $request_data->address,
+            'company_name' => $request_data->company_name,
+            'password' => Hash::make('password'),
+
         ]);
 
         $image_path = (new FileUploadedService())->fileUploaded($request_data,$this->path,$data);

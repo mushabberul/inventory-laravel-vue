@@ -1,42 +1,44 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
-use App\Models\Category;
 use App\Traits\ApiResponse;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Resources\CategoryResource;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\BrandResource;
 use Illuminate\Support\Facades\Validator;
-use App\Repositories\Category\CategoryInterface;
+use App\Repositories\Brand\BrandInterface;
 
-class CategoryController extends Controller
+class BrandController extends Controller
 {
-    private $cateogryRepository;
+    private $brandRepository;
     use ApiResponse;
 
-    function __construct(CategoryInterface $cateogryRepository){
-        $this->cateogryRepository = $cateogryRepository;
+    function __construct(BrandInterface $brandRepository){
+
+        $this->brandRepository = $brandRepository;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+
         $per_page = request('per_page');
-        $data = $this->cateogryRepository->allWithPagination($per_page);
+        $data = $this->brandRepository->allWithPagination($per_page);
         $metadata['count'] = count($data);
 
-        return $this->success('Category List',$data,$metadata);
+        return $this->success('Brand List',$data,$metadata);
+
     }
     /**
      * @param int $par_page
      */
-    public function allCategories()
+    public function allBrands()
     {
-        $data = $this->cateogryRepository->all();
+        $data = $this->brandRepository->all();
         $metadata['count']= count($data);
-        return $this->success('Category List',$data,$metadata);
+        return $this->success('Brand List',$data,$metadata);
     }
 
     /**
@@ -51,8 +53,8 @@ class CategoryController extends Controller
             'status' => 'nullable',
         ])->validate();
 
-        $data = $this->cateogryRepository->store($validated);
-        return $this->success('Category Create Successfully', (new CategoryResource($data)));
+        $data = $this->brandRepository->store($validated);
+        return $this->success('Brand Create Successfully', (new BrandResource($data)));
     }
 
     /**
@@ -60,8 +62,8 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        $data = $this->cateogryRepository->show($id);
-        return $this->success('Category Data',$data);
+        $data = $this->brandRepository->show($id);
+        return $this->success('Brand Data',$data);
     }
 
     /**
@@ -69,6 +71,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         $validated = Validator::make($request->all(),[
             'name' =>'required|string',
             'code'=>'nullable',
@@ -76,8 +79,9 @@ class CategoryController extends Controller
             'status' => 'nullable',
         ])->validate();
 
-        $data = $this->cateogryRepository->update($validated,$id);
-        return $this->success('Category Create Successfully',$data);
+
+        $data = $this->brandRepository->update($validated,$id);
+        return $this->success('Brand Create Successfully',$data);
     }
 
     /**
@@ -85,15 +89,15 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = $this->cateogryRepository->delete($id);
-        return $this->success('Category Deleted Successfully');
+        $data = $this->brandRepository->delete($id);
+        return $this->success('Brand Deleted Successfully');
     }
     /**
      * Change status resource from storage.
      */
     public function status(string $id)
     {
-        $data = $this->cateogryRepository->status($id);
-        return $this->success('Category Status Updated Successfully',$data);
+        $data = $this->brandRepository->status($id);
+        return $this->success('Brand Status Updated Successfully',$data);
     }
 }

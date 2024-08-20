@@ -18,7 +18,7 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Cloths',
                 'slug' => Str::slug('Cloths'),
-                'image' => 'path/to/image1.jpg',
+                'code'=>101,
                 'status' => '1',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -26,7 +26,7 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Electronic',
                 'slug' => Str::slug('Electronic'),
-                'image' => 'path/to/image2.jpg',
+                'code'=>102,
                 'status' => '1',
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -34,7 +34,7 @@ class CategorySeeder extends Seeder
             [
                 'name' => 'Man',
                 'slug' => Str::slug('man'),
-                'image' => 'path/to/image3.jpg',
+                'code'=>103,
                 'status' => '1',
                 'created_at' => now(),
                 'updated_at' => now(),

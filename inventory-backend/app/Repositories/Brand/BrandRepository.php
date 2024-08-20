@@ -1,21 +1,23 @@
 <?php
 
-namespace App\Repositories\Category;
+namespace App\Repositories\Brand;
 
-use App\Models\Category;
-use App\Service\FileUploadedService;
+use App\Models\Brand;
 use Illuminate\Support\Str;
+use App\Service\FileUploadedService;
+use App\Repositories\Brand\BrandInterface;
 
-class CategoryRepository implements CategoryInterface
+
+class BrandRepository implements BrandInterface
 {
-    protected $path = 'public/category';
+    protected $path = 'public/brand';
 
     /**
      * @return Mixed
      */
     public function all()
     {
-        $data = Category::latest()->get();
+        $data = Brand::latest()->get();
         return $data;
     }
 
@@ -24,7 +26,7 @@ class CategoryRepository implements CategoryInterface
      * @return mixed
      */
     public function allWithPagination($per_page){
-        $data = Category::latest('id')
+        $data = Brand::latest('id')
         ->when(request('search'),function($query){
             $query->where('name','like','%'.request('search').'%');
         })
@@ -37,7 +39,7 @@ class CategoryRepository implements CategoryInterface
      * @return mixed
      */
     public function status($id){
-        $data = Category::findOrFail($id);
+        $data = Brand::findOrFail($id);
 
         if($data->status == 1){
             $data->status = 0;
@@ -57,12 +59,13 @@ class CategoryRepository implements CategoryInterface
     public function store($request_data)
     {
         $request_data = (object)$request_data;
-        $data = Category::create([
+        $data = Brand::create([
             'name' => $request_data->name,
+            'code' => $request_data->code,
             'slug' => Str::slug($request_data->name),
-            'code'=>$request_data->code
         ]);
 
+        // dd($request_data);
         $image_path = (new FileUploadedService())->fileUploaded($request_data,$this->path,$data);
         $data->update([
             'file'=>$image_path
@@ -77,7 +80,7 @@ class CategoryRepository implements CategoryInterface
      */
     public function show($id)
     {
-        $data = Category::findOrFail($id);
+        $data = Brand::findOrFail($id);
         return $data;
     }
 
@@ -89,11 +92,12 @@ class CategoryRepository implements CategoryInterface
     public function update($request_data, $id)
     {
         $request_data =(object)$request_data;
-        $data = Category::findOrFail($id);
+        $data = Brand::findOrFail($id);
         $data->update([
             'name' => $request_data->name,
+            'code' => $request_data->code,
             'slug' => Str::slug($request_data->name),
-            'code'=>$request_data->code,
+
         ]);
 
         $image_path = (new FileUploadedService())->fileUploaded($request_data,$this->path,$data);

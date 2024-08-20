@@ -15,7 +15,6 @@ class LoginController extends Controller
             'password'=>'required'
         ]);
 
-
         if($validator->fails()){
             return response()->json($validator->errors(),400);
         }

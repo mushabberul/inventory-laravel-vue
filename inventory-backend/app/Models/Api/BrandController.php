@@ -1,22 +1,15 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Api;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 
-class Category extends Model
+class BrandController extends Model
 {
     use HasFactory,SoftDeletes;
 
      protected $guarded = ['id'];
-
-     protected $casts = [
-        'name' => 'string',
-        'slug' => 'string',
-        'file' => 'string',
-        'status' => 'integer',
-    ];
 }

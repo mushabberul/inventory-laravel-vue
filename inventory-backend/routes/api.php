@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\SystemSettingController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
@@ -28,4 +30,12 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('category-status/{id}',[CategoryController::class,'status']);
     Route::get('all-categories',[CategoryController::class,'allCategories']);
     Route::apiResource('categories',CategoryController::class);
+    //Brand
+    Route::post('brand-status/{id}',[BrandController::class,'status']);
+    Route::get('all-brands',[BrandController::class,'allBrands']);
+    Route::apiResource('brands',BrandController::class);
+    //Supplier
+    Route::post('supplier-status/{id}',[SupplierController::class,'status']);
+    Route::get('all-suppliers',[SupplierController::class,'allSuppliers']);
+    Route::apiResource('suppliers',SupplierController::class);
 });
