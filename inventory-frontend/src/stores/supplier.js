@@ -3,18 +3,22 @@ import { inventoryAxiosClient } from "@/utils/systemaxios";
 import { defineStore } from "pinia";
 
 
-export const useCategoryStore = defineStore('category', {
+export const useSupplierStore = defineStore('supplier', {
     state: () => ({
         rowData: [],
-        categories: [],
-        category: null,
+        suppliers: [],
+        supplier: null,
         swal: null,
         errors: null,
         router: null,
         editForm:{
-            name:null,
-            file:null,
-            code:null,
+            name: null,
+            phone: null,
+            file: null,
+            email:null,
+            nid:null,
+            address:null,
+            company_name:null,
              _method: 'PUT'
         },
         limit: config.defaultDataLimit || 10,
@@ -27,12 +31,12 @@ export const useCategoryStore = defineStore('category', {
     }),
     getters: {},
     actions: {
-        async getAllCategories() {
+        async getAllSuppliers() {
             try {
-                const { data } = await inventoryAxiosClient.get('all-categories');
+                const { data } = await inventoryAxiosClient.get('all-suppliers');
                 console.log(data);
                 this.rowData = data;
-                this.categories = data.data;
+                this.suppliers = data.data;
                 this.pagination.totalCount = data.metadata.count;
 
             } catch (error) {
@@ -45,9 +49,9 @@ export const useCategoryStore = defineStore('category', {
                 this.errors = error.response.data;
             }
         },
-        async getCategories(page = 1, limit = this.limit, search = '') {
+        async getSuppliers(page = 1, limit = this.limit, search = '') {
             try {
-                const { data } = await inventoryAxiosClient.get('categories', {
+                const { data } = await inventoryAxiosClient.get('suppliers', {
                     params: {
                         'page': page,
                         'per_page': limit,
@@ -56,35 +60,40 @@ export const useCategoryStore = defineStore('category', {
                 });
                 console.log(data);
                 this.rowData = data.data;
-                this.categories = data.data.data;
+                this.suppliers = data.data.data;
                 this.pagination.totalCount = data.metadata.count;
                 this.pagination.currentPage = data.data.current_page;
                 this.pagination.lastPage = data.data.last_page;
 
             } catch (error) {
                 console.log(error);
+                this.errors = error.response.data;
                 this.swal({
                     icon: 'error',
                     title: 'Something Went Wrong!',
                     text: this.errors.message
                 });
 
-                this.errors = error.response.data;
+                
             }
         },
-        async getCategory(category_id) {
+        async getSupplier(supplier_id) {
             try{
-                const {data} = await inventoryAxiosClient.get(`/categories/${category_id}`);
+                const {data} = await inventoryAxiosClient.get(`/suppliers/${supplier_id}`);
                 this.editForm.name = data.data.name;
-                this.editForm.code = data.data.code;
+                this.editForm.email = data.data.email;
+                this.editForm.phone = data.data.phone;
+                this.editForm.nid = data.data.nid;
+                this.editForm.address = data.data.address;
+                this.editForm.company_name = data.data.company_name;
                 console.log(data.data);
-                this.category = data.data;
+                this.supplier = data.data;
             }catch(error){
                 console.log(error);
             }
          },
         
-        async storeCategory(formData) {
+        async storeSupplier(formData) {
             
             try {
                 const config = {
@@ -92,15 +101,15 @@ export const useCategoryStore = defineStore('category', {
                         'content-type':'multipart/form-data',
                     }
                 }
-                const { data } = await inventoryAxiosClient.post('categories', formData,config);
+                const { data } = await inventoryAxiosClient.post('suppliers', formData,config);
                 console.log(data);
                 
                 this.swal({
                     icon: 'success',
-                    title: 'Category Created Successfully',
+                    title: 'Supplier Created Successfully',
                     timer: 1000
                 });
-                this.router.push({name:'category.index'});
+                this.router.push({name:'supplier.index'});
             } catch (error) {
                 console.log(error);
                 this.errors = error.response.data;
@@ -111,21 +120,21 @@ export const useCategoryStore = defineStore('category', {
                 });
             }
         },
-        async updateCategory(editFormData,category_id) {
+        async updateSupplier(editForm,supplier_id) {
             try{
                 const config = {
                     headers:{
                         'content-type':'multipart/form-data',
                     }
                 }
-                const {data} = await inventoryAxiosClient.post(`/categories/${category_id}`,editFormData,config);
+                const {data} = await inventoryAxiosClient.post(`/suppliers/${supplier_id}`,editForm,config);
                 console.log(data);
                 this.swal({
                     icon:'success',
                     title:'Updated Successfully',
                     timer:1000
                 });
-                this.router.push({name:'category.index'});
+                this.router.push({name:'supplier.index'});
             }catch(error){
                 console.log(error);
                 this.errors = error.response.data;
@@ -137,9 +146,9 @@ export const useCategoryStore = defineStore('category', {
                 });
             }
          },
-        async deleteCategory(id) {
+        async deleteSupplier(id) {
             try {
-                const { data } = inventoryAxiosClient.delete(`/categories/${id}`);
+                const { data } = inventoryAxiosClient.delete(`/suppliers/${id}`);
                 this.swal({
                     icon: 'success',
                     title: 'Deleted Successfully!',
@@ -155,9 +164,9 @@ export const useCategoryStore = defineStore('category', {
                 });
             }
         },
-        async changeStatus(category_id) {
+        async changeStatus(supplier_id) {
             try {
-                const { data } = await inventoryAxiosClient.post(`/category-status/${category_id}`);
+                const { data } = await inventoryAxiosClient.post(`/supplier-status/${supplier_id}`);
                 console.log(data);
                 this.swal({
                     icon: 'success',

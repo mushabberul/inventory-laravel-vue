@@ -12,9 +12,19 @@ const router = createRouter({
       meta:{requiresAuth:true},
       children:[
         {path:'/dashboard',name:'dashboard',component: ()=>import('@/views/Dashboard.vue')},
+
+        //Category
         {path:'/category/index',name:'category.index',component: ()=>import('@/views/Category/Index.vue')},
         {path:'/category/create',name:'category.create',component: ()=>import('@/views/Category/Create.vue')},
         {path:'/caregory/edit/:id',name:'category.edit',component: ()=>import('@/views/Category/Edit.vue')},
+        //Brand
+        {path:'/brand/index',name:'brand.index',component: ()=>import('@/views/Brand/Index.vue')},
+        {path:'/brand/create',name:'brand.create',component: ()=>import('@/views/Brand/Create.vue')},
+        {path:'/brand/edit/:id',name:'brand.edit',component: ()=>import('@/views/Brand/Edit.vue')},
+        //Supplier
+        {path:'/supplier/index',name:'supplier.index',component: ()=>import('@/views/Supplier/Index.vue')},
+        {path:'/supplier/create',name:'supplier.create',component: ()=>import('@/views/Supplier/Create.vue')},
+        {path:'/supplier/edit/:id',name:'supplier.edit',component: ()=>import('@/views/Supplier/Edit.vue')},
       ]
     },
     {

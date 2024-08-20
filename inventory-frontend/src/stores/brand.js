@@ -3,11 +3,11 @@ import { inventoryAxiosClient } from "@/utils/systemaxios";
 import { defineStore } from "pinia";
 
 
-export const useCategoryStore = defineStore('category', {
+export const useBrandStore = defineStore('brand', {
     state: () => ({
         rowData: [],
-        categories: [],
-        category: null,
+        brands: [],
+        brand: null,
         swal: null,
         errors: null,
         router: null,
@@ -27,12 +27,12 @@ export const useCategoryStore = defineStore('category', {
     }),
     getters: {},
     actions: {
-        async getAllCategories() {
+        async getAllBrands() {
             try {
-                const { data } = await inventoryAxiosClient.get('all-categories');
+                const { data } = await inventoryAxiosClient.get('all-brands');
                 console.log(data);
                 this.rowData = data;
-                this.categories = data.data;
+                this.brands = data.data;
                 this.pagination.totalCount = data.metadata.count;
 
             } catch (error) {
@@ -45,9 +45,9 @@ export const useCategoryStore = defineStore('category', {
                 this.errors = error.response.data;
             }
         },
-        async getCategories(page = 1, limit = this.limit, search = '') {
+        async getBrands(page = 1, limit = this.limit, search = '') {
             try {
-                const { data } = await inventoryAxiosClient.get('categories', {
+                const { data } = await inventoryAxiosClient.get('brands', {
                     params: {
                         'page': page,
                         'per_page': limit,
@@ -56,7 +56,7 @@ export const useCategoryStore = defineStore('category', {
                 });
                 console.log(data);
                 this.rowData = data.data;
-                this.categories = data.data.data;
+                this.brands = data.data.data;
                 this.pagination.totalCount = data.metadata.count;
                 this.pagination.currentPage = data.data.current_page;
                 this.pagination.lastPage = data.data.last_page;
@@ -72,19 +72,19 @@ export const useCategoryStore = defineStore('category', {
                 this.errors = error.response.data;
             }
         },
-        async getCategory(category_id) {
+        async getBrand(brand_id) {
             try{
-                const {data} = await inventoryAxiosClient.get(`/categories/${category_id}`);
+                const {data} = await inventoryAxiosClient.get(`/brands/${brand_id}`);
                 this.editForm.name = data.data.name;
                 this.editForm.code = data.data.code;
                 console.log(data.data);
-                this.category = data.data;
+                this.brand = data.data;
             }catch(error){
                 console.log(error);
             }
          },
         
-        async storeCategory(formData) {
+        async storeBrand(formData) {
             
             try {
                 const config = {
@@ -92,15 +92,15 @@ export const useCategoryStore = defineStore('category', {
                         'content-type':'multipart/form-data',
                     }
                 }
-                const { data } = await inventoryAxiosClient.post('categories', formData,config);
+                const { data } = await inventoryAxiosClient.post('brands', formData,config);
                 console.log(data);
                 
                 this.swal({
                     icon: 'success',
-                    title: 'Category Created Successfully',
+                    title: 'Brand Created Successfully',
                     timer: 1000
                 });
-                this.router.push({name:'category.index'});
+                this.router.push({name:'brand.index'});
             } catch (error) {
                 console.log(error);
                 this.errors = error.response.data;
@@ -111,21 +111,21 @@ export const useCategoryStore = defineStore('category', {
                 });
             }
         },
-        async updateCategory(editFormData,category_id) {
+        async updateBrand(editFormData,brand_id) {
             try{
                 const config = {
                     headers:{
                         'content-type':'multipart/form-data',
                     }
                 }
-                const {data} = await inventoryAxiosClient.post(`/categories/${category_id}`,editFormData,config);
+                const {data} = await inventoryAxiosClient.post(`/brands/${brand_id}`,editFormData,config);
                 console.log(data);
                 this.swal({
                     icon:'success',
                     title:'Updated Successfully',
                     timer:1000
                 });
-                this.router.push({name:'category.index'});
+                this.router.push({name:'brand.index'});
             }catch(error){
                 console.log(error);
                 this.errors = error.response.data;
@@ -137,9 +137,9 @@ export const useCategoryStore = defineStore('category', {
                 });
             }
          },
-        async deleteCategory(id) {
+        async deleteBrand(id) {
             try {
-                const { data } = inventoryAxiosClient.delete(`/categories/${id}`);
+                const { data } = inventoryAxiosClient.delete(`/brands/${id}`);
                 this.swal({
                     icon: 'success',
                     title: 'Deleted Successfully!',
@@ -155,9 +155,9 @@ export const useCategoryStore = defineStore('category', {
                 });
             }
         },
-        async changeStatus(category_id) {
+        async changeStatus(brand_id) {
             try {
-                const { data } = await inventoryAxiosClient.post(`/category-status/${category_id}`);
+                const { data } = await inventoryAxiosClient.post(`/brand-status/${brand_id}`);
                 console.log(data);
                 this.swal({
                     icon: 'success',

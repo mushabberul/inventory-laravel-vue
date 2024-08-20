@@ -1,26 +1,27 @@
 <script setup>
 //All libery import
-import { useCategoryStore } from '@/stores/category';
+import config from "@/utils/config";
+import { useSupplierStore } from '@/stores/supplier';
 import { ref, reactive, onMounted,inject,watch } from 'vue';
 import { useRouter } from 'vue-router';
 import _ from 'lodash';
 
 //All instance
-const categoryStore = useCategoryStore();
+const supplierStore = useSupplierStore();
 const router = useRouter();
 const swal = inject('$swal');
 
-categoryStore.swal = swal;
+supplierStore.swal = swal;
 //All veriable
 const searchKeyword = ref('');
-const base_url='http://127.0.0.1:8000';
+const base_url=config.base_url;
 
 //All methods
 
-const deleteCategory = (category_id,category_name)=>{
+const deleteSupplier = (supplier_id,supplier_name)=>{
     swal({
         title:"Are you sure delete?",
-        text: category_name,
+        text: supplier_name,
         icon:"warning",
         showCancelButton:true,
         confirmButtonColor: "#3085d6",
@@ -28,22 +29,22 @@ const deleteCategory = (category_id,category_name)=>{
         confirmButtonText: "Yes, delete it!"
     }).then((result)=>{
         if(result.isConfirmed){
-            categoryStore.deleteCategory(category_id);
-            categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit);
+            supplierStore.deleteSupplier(supplier_id);
+            supplierStore.getSuppliers(supplierStore.pagination.currentPage,supplierStore.limit);
         }
     });
 }
 
 //Hooks & Computed
 onMounted(()=>{
-    categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit);
+    supplierStore.getSuppliers(supplierStore.pagination.currentPage,supplierStore.limit);
 });
 
 watch(
     searchKeyword,
     _.debounce((current,previous)=>{
  
-    categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit,current);
+    supplierStore.getSuppliers(supplierStore.pagination.currentPage,supplierStore.limit,current);
 },500));
 
 
@@ -58,8 +59,8 @@ watch(
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h4>Category List</h4>
-                                <router-link class="btn btn-success" :to="{ name: 'category.create' }">
+                                <h4>Supplier List</h4>
+                                <router-link class="btn btn-success" :to="{ name: 'supplier.create' }">
                                     <i class='bx bx-plus-circle'></i>
                                     Create New
                                 </router-link>
@@ -74,7 +75,7 @@ watch(
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-md-8">
-                                    Total Count: <span class="">{{ categoryStore.pagination.totalCount }}</span>
+                                    Total Count: <span class="">{{ supplierStore.pagination.totalCount }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="search" v-model="searchKeyword" placeholder="Search ..." class="form-control" id="">
@@ -92,34 +93,43 @@ watch(
                                 <tr>
                                     <th>Serial</th>
                                     <th>Name</th>
+                                    <th>email</th>
+                                    <th>phone</th>
+                                    <th>NID</th>
+                                    <th>Address</th>
+                                    <th>Company Name</th>
                                     <th>File</th>
-                                    <th>Code</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(category,index) in categoryStore.categories">
-                                    <td>{{ (categoryStore.pagination.currentPage*categoryStore.limit)-categoryStore.limit + index +1 }}</td>
-                                    <td>{{category.name}}</td>
+                                <tr v-for="(supplier,index) in supplierStore.suppliers">
+                                    <td>{{ (supplierStore.pagination.currentPage*supplierStore.limit)-supplierStore.limit + index +1 }}</td>
+                                    <td>{{supplier.name}}</td>
+                                    <td>{{supplier.email}}</td>
+                                    <td>{{supplier.phone}}</td>
+                                    <td>{{supplier.nid}}</td>
+                                    <td>{{supplier.address}}</td>
+                                    <td>{{supplier.company_name}}</td>
                                     <td>
-                                        <template v-if="category.file != null">
+                                        <template v-if="supplier.file != null">
 
-                                            <img width="100px" :src="base_url+category.file" alt="Category File">
+                                            <a :href="base_url+supplier.file"><i class='bx bxs-download'></i></a>
                                         </template>
                                     </td>
-                                    <td>{{category.code}}</td>
+                                   
                                     <td>
                                         <div class="form-check form-switch">
-                                        <input @change="categoryStore.changeStatus(category.id)" class="form-check-input" type="checkbox" role="switch" :checked="category.status">
+                                        <input @change="supplierStore.changeStatus(supplier.id)" class="form-check-input" type="checkbox" role="switch" :checked="supplier.status">
                                         </div>
                                     </td>
                                     <td>
-                                        <router-link :to="{name:'category.edit',params:{id:category.id}}" class="btn btn-warning">
+                                        <router-link :to="{name:'supplier.edit',params:{id:supplier.id}}" class="btn btn-warning">
                                            
                                             <i class='bx bxs-edit'></i>
                                         </router-link>
-                                        <a @click.prevent="deleteCategory(category.id,category.name)" class="btn btn-danger ms-2">
+                                        <a @click.prevent="deleteSupplier(supplier.id,supplier.name)" class="btn btn-danger ms-2">
                                             <i class="bx bxs-trash"></i>
                                         </a>
                                         
@@ -130,16 +140,15 @@ watch(
                     </div>
                     <div class="d-flex justify-content-center">
                         <v-pagination
-                            v-model="categoryStore.pagination.currentPage"
-                            :pages="categoryStore.pagination.lastPage"
+                            v-model="supplierStore.pagination.currentPage"
+                            :pages="supplierStore.pagination.lastPage"
                             :range-size="1"
                             active-color="#DCEDFF"
-                            @update:modelValue="categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit);"
+                            @update:modelValue="supplierStore.getSuppliers(supplierStore.pagination.currentPage,supplierStore.limit);"
                         />
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </template>

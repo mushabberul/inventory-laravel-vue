@@ -42,6 +42,32 @@
                                         Inbox</RouterLink>
                                 </div>
                             </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
+                                    role="button">
+                                    <span data-key="t-email">Brand</span>
+                                    <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-email">
+                                    <RouterLink :to="{ name: 'brand.create' }" class="dropdown-item" data-key="t-inbox">
+                                        Create</RouterLink>
+                                    <RouterLink :to="{ name: 'brand.index' }" class="dropdown-item" data-key="t-inbox">
+                                        Inbox</RouterLink>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
+                                    role="button">
+                                    <span data-key="t-email">Supplier</span>
+                                    <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-email">
+                                    <RouterLink :to="{ name: 'supplier.create' }" class="dropdown-item" data-key="t-inbox">
+                                        Create</RouterLink>
+                                    <RouterLink :to="{ name: 'supplier.index' }" class="dropdown-item" data-key="t-inbox">
+                                        Inbox</RouterLink>
+                                </div>
+                            </div>
                         </div>
                     </li>
 
@@ -92,11 +118,6 @@
                                     <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-charts">
-                                    <a href="charts-line.html" class="dropdown-item" data-key="t-line">Line</a>
-                                    <a href="charts-area.html" class="dropdown-item" data-key="t-area">Area</a>
-                                    <a href="charts-column.html" class="dropdown-item" data-key="t-column">Column</a>
-                                    <a href="charts-bar.html" class="dropdown-item" data-key="t-bar">Bar</a>
-                                    <a href="charts-mixed.html" class="dropdown-item" data-key="t-mixed">Mixed</a>
                                     <a href="charts-timeline.html" class="dropdown-item"
                                         data-key="t-timeline">Timeline</a>
                                     <a href="charts-candlestick.html" class="dropdown-item"
@@ -104,14 +125,7 @@
                                     <a href="charts-boxplot.html" class="dropdown-item" data-key="t-boxplot">Boxplot</a>
                                     <a href="charts-bubble.html" class="dropdown-item" data-key="t-bubble">Bubble</a>
                                     <a href="charts-scatter.html" class="dropdown-item" data-key="t-scatter">Scatter</a>
-                                    <a href="charts-heatmap.html" class="dropdown-item" data-key="t-heatmap">Heatmap</a>
-                                    <a href="charts-treemap.html" class="dropdown-item" data-key="t-treemap">Treemap</a>
-                                    <a href="charts-pie.html" class="dropdown-item" data-key="t-pie">Pie</a>
-                                    <a href="charts-radialbar.html" class="dropdown-item"
-                                        data-key="t-radialbar">Radialbar</a>
-                                    <a href="charts-radar.html" class="dropdown-item" data-key="t-radar">Radar</a>
-                                    <a href="charts-polararea.html" class="dropdown-item"
-                                        data-key="t-polararea">Polararea</a>
+
                                 </div>
                             </div>
                             <div class="dropdown">

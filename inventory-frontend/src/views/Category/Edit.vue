@@ -2,7 +2,7 @@
 // All import 
 import { useRouter,useRoute } from 'vue-router';
 import { useCategoryStore } from '@/stores/category';
-import { reactive, inject,onMounted } from 'vue';
+import {ref, reactive, inject,onMounted } from 'vue';
 //All instance
 
 const router = useRouter();
@@ -19,7 +19,7 @@ const schema = reactive({
 });
 //All methods
 const onFileChange = (e) => {
-    categoryStore.editForm.image = e.target.files[0];
+    categoryStore.editForm.file = e.target.files[0];
 };
 const UpdateCategory = () => {
     categoryStore.updateCategory(categoryStore.editForm,route.params.id);
@@ -61,16 +61,22 @@ onMounted(()=>{
                                             id="name" placeholder="Enter category name" />
                                         <ErrorMessage name="name" />
                                     </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="code">Code</label>
+                                        <vee-field type="text" v-model="categoryStore.editForm.code" name="code" class="form-control"
+                                            id="code" placeholder="Enter category code" />
+                                        <ErrorMessage name="code" />
+                                    </div>
 
                                     <div class="form-group col-md-6">
-                                        <label for="image">Image</label>
-                                        <vee-field name="image" @change="onFileChange" type="file" class="form-control"
-                                            id="image" />
-                                        <ErrorMessage name="image" />
+                                        <label for="file">File</label>
+                                        <vee-field name="file" @change="onFileChange" type="file" class="form-control"
+                                            id="file" />
+                                           
+                                        <ErrorMessage name="file" />
                                     </div>
                                 </div>
                                 <div class="form-group mt-2">
-
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </vee-form>

@@ -1,26 +1,26 @@
 <script setup>
 //All libery import
-import { useCategoryStore } from '@/stores/category';
+import { useBrandStore } from '@/stores/brand';
 import { ref, reactive, onMounted,inject,watch } from 'vue';
 import { useRouter } from 'vue-router';
 import _ from 'lodash';
 
 //All instance
-const categoryStore = useCategoryStore();
+const brandStore = useBrandStore();
 const router = useRouter();
 const swal = inject('$swal');
 
-categoryStore.swal = swal;
+brandStore.swal = swal;
 //All veriable
 const searchKeyword = ref('');
 const base_url='http://127.0.0.1:8000';
 
 //All methods
 
-const deleteCategory = (category_id,category_name)=>{
+const deleteBrand = (brand_id,brand_name)=>{
     swal({
         title:"Are you sure delete?",
-        text: category_name,
+        text: brand_name,
         icon:"warning",
         showCancelButton:true,
         confirmButtonColor: "#3085d6",
@@ -28,22 +28,22 @@ const deleteCategory = (category_id,category_name)=>{
         confirmButtonText: "Yes, delete it!"
     }).then((result)=>{
         if(result.isConfirmed){
-            categoryStore.deleteCategory(category_id);
-            categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit);
+            brandStore.deleteBrand(brand_id);
+            brandStore.getBrands(brandStore.pagination.currentPage,brandStore.limit);
         }
     });
 }
 
 //Hooks & Computed
 onMounted(()=>{
-    categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit);
+    brandStore.getBrands(brandStore.pagination.currentPage,brandStore.limit);
 });
 
 watch(
     searchKeyword,
     _.debounce((current,previous)=>{
  
-    categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit,current);
+    brandStore.getBrands(brandStore.pagination.currentPage,brandStore.limit,current);
 },500));
 
 
@@ -58,8 +58,8 @@ watch(
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h4>Category List</h4>
-                                <router-link class="btn btn-success" :to="{ name: 'category.create' }">
+                                <h4>Brand List</h4>
+                                <router-link class="btn btn-success" :to="{ name: 'brand.create' }">
                                     <i class='bx bx-plus-circle'></i>
                                     Create New
                                 </router-link>
@@ -74,7 +74,7 @@ watch(
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-md-8">
-                                    Total Count: <span class="">{{ categoryStore.pagination.totalCount }}</span>
+                                    Total Count: <span class="">{{ brandStore.pagination.totalCount }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="search" v-model="searchKeyword" placeholder="Search ..." class="form-control" id="">
@@ -93,33 +93,33 @@ watch(
                                     <th>Serial</th>
                                     <th>Name</th>
                                     <th>File</th>
-                                    <th>Code</th>
+                                    <th>code</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(category,index) in categoryStore.categories">
-                                    <td>{{ (categoryStore.pagination.currentPage*categoryStore.limit)-categoryStore.limit + index +1 }}</td>
-                                    <td>{{category.name}}</td>
+                                <tr v-for="(brand,index) in brandStore.brands">
+                                    <td>{{ (brandStore.pagination.currentPage*brandStore.limit)-brandStore.limit + index +1 }}</td>
+                                    <td>{{brand.name}}</td>
                                     <td>
-                                        <template v-if="category.file != null">
+                                        <template v-if="brand.file != null">
 
-                                            <img width="100px" :src="base_url+category.file" alt="Category File">
+                                            <img width="100px" :src="base_url+brand.file" alt="Brand File">
                                         </template>
                                     </td>
-                                    <td>{{category.code}}</td>
+                                    <td>{{brand.code}}</td>
                                     <td>
                                         <div class="form-check form-switch">
-                                        <input @change="categoryStore.changeStatus(category.id)" class="form-check-input" type="checkbox" role="switch" :checked="category.status">
+                                        <input @change="brandStore.changeStatus(brand.id)" class="form-check-input" type="checkbox" role="switch" :checked="brand.status">
                                         </div>
                                     </td>
                                     <td>
-                                        <router-link :to="{name:'category.edit',params:{id:category.id}}" class="btn btn-warning">
+                                        <router-link :to="{name:'brand.edit',params:{id:brand.id}}" class="btn btn-warning">
                                            
                                             <i class='bx bxs-edit'></i>
                                         </router-link>
-                                        <a @click.prevent="deleteCategory(category.id,category.name)" class="btn btn-danger ms-2">
+                                        <a @click.prevent="deleteBrand(brand.id,brand.name)" class="btn btn-danger ms-2">
                                             <i class="bx bxs-trash"></i>
                                         </a>
                                         
@@ -130,11 +130,11 @@ watch(
                     </div>
                     <div class="d-flex justify-content-center">
                         <v-pagination
-                            v-model="categoryStore.pagination.currentPage"
-                            :pages="categoryStore.pagination.lastPage"
+                            v-model="brandStore.pagination.currentPage"
+                            :pages="brandStore.pagination.lastPage"
                             :range-size="1"
                             active-color="#DCEDFF"
-                            @update:modelValue="categoryStore.getCategories(categoryStore.pagination.currentPage,categoryStore.limit);"
+                            @update:modelValue="brandStore.getBrands(brandStore.pagination.currentPage,brandStore.limit);"
                         />
                     </div>
                 </div>
