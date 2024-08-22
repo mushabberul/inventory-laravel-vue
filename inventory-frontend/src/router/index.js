@@ -13,6 +13,7 @@ const router = createRouter({
       children:[
         {path:'/dashboard',name:'dashboard',component: ()=>import('@/views/Dashboard.vue')},
 
+        //Inventory
         //Category
         {path:'/category/index',name:'category.index',component: ()=>import('@/views/Category/Index.vue')},
         {path:'/category/create',name:'category.create',component: ()=>import('@/views/Category/Create.vue')},
@@ -25,6 +26,11 @@ const router = createRouter({
         {path:'/supplier/index',name:'supplier.index',component: ()=>import('@/views/Supplier/Index.vue')},
         {path:'/supplier/create',name:'supplier.create',component: ()=>import('@/views/Supplier/Create.vue')},
         {path:'/supplier/edit/:id',name:'supplier.edit',component: ()=>import('@/views/Supplier/Edit.vue')},
+
+        //CRM
+        {path:'/customar/index',name:'customar.index',component: ()=>import('@/views/Customar/Index.vue')},
+        {path:'/customar/create',name:'customar.create',component: ()=>import('@/views/Customar/Create.vue')},
+        {path:'/customar/edit/:id',name:'customar.edit',component: ()=>import('@/views/Customar/Edit.vue')},
       ]
     },
     {

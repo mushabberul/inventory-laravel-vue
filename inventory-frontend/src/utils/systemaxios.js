@@ -8,8 +8,6 @@ const inventoryAxiosClient = axios.create({
         'Content-Type': 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
         'Authorization': 'Bearer '+config.apiToken,
-         "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS"
     }
 });
 
@@ -18,7 +16,7 @@ const baseClient = axios.create({
     headers: {
         "Accept": 'application/json',
         "Content-Type": 'application/json',
-        "X-Requested-With": 'XMLHttpRequest'
+        "X-Requested-With": 'XMLHttpRequest', 
     }
 });
 
