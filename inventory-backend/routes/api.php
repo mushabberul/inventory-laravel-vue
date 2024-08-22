@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\BrandController;
+use App\Http\Controllers\Api\CustomarController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\SystemSettingController;
@@ -35,7 +36,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('all-brands',[BrandController::class,'allBrands']);
     Route::apiResource('brands',BrandController::class);
     //Supplier
-    Route::post('supplier-status/{id}',[SupplierController::class,'status']);
+    Route::post('customar-status/{id}',[SupplierController::class,'status']);
     Route::get('all-suppliers',[SupplierController::class,'allSuppliers']);
     Route::apiResource('suppliers',SupplierController::class);
+    //Customar
+    Route::post('customar-status/{id}',[CustomarController::class,'status']);
+    Route::get('all-customars',[CustomarController::class,'allCustomars']);
+    Route::apiResource('customars',CustomarController::class);
 });

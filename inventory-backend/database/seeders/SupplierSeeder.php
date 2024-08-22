@@ -17,7 +17,7 @@ class SupplierSeeder extends Seeder
     {
         $suppliers = [
             [
-                'role_id' => Supplier::SIPPLIER,
+                'role_id' => Supplier::SUPPLIER,
                 'name' => "Supplier1",
                 'email' => "supplier1@gmail.com",
                 'phone' => '0178888888',
@@ -30,7 +30,7 @@ class SupplierSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ],
             [
-                'role_id' => Supplier::SIPPLIER,
+                'role_id' => Supplier::SUPPLIER,
                 'name' => "Supplier2",
                 'email' => "supplier2@gmail.com",
                 'phone' => '0178888889',

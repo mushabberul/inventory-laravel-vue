@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Repositories\Supplier;
+namespace App\Repositories\Customar;
 
 use Illuminate\Support\Str;
-use App\Models\User as Supplier;
-use App\Service\FileUploadedService;
+use App\Models\User as Customar;
 use Illuminate\Support\Facades\Hash;
-use App\Repositories\Supplier\SupplierInterface;
+use App\Repositories\Customar\CustomarInterface;
 
-class SupplierRepository implements SupplierInterface
+
+class CustomarRepository implements CustomarInterface
 {
-    protected $path = 'public/supplier';
-
     /**
      * @return Mixed
      */
     public function all()
     {
-        $data = Supplier::supplier()
-        ->latest()->get();
+        $data = Customar::customar()
+        ->latest()
+        ->get();
         return $data;
     }
 
@@ -27,14 +26,10 @@ class SupplierRepository implements SupplierInterface
      * @return mixed
      */
     public function allWithPagination($per_page){
-        $data = Supplier::supplier()
+        $data = Customar::customar()
         ->latest('id')
         ->when(request('search'),function($query){
-            $query->where('name','like','%'.request('search').'%')
-            ->orWhere('email','like','%'.request('search').'%')
-            ->orWhere('phone','like','%'.request('search').'%')
-            ->orWhere('nid','like','%'.request('search').'%')
-            ->orWhere('company_name','like','%'.request('search').'%');
+            $query->where('name','like','%'.request('search').'%');
         })
         ->paginate($per_page);
         return $data;
@@ -45,7 +40,7 @@ class SupplierRepository implements SupplierInterface
      * @return mixed
      */
     public function status($id){
-        $data = Supplier::findOrFail($id);
+        $data = Customar::findOrFail($id);
 
         if($data->status == 1){
             $data->status = 0;
@@ -65,20 +60,15 @@ class SupplierRepository implements SupplierInterface
     public function store($request_data)
     {
         $request_data = (object)$request_data;
-        $data = Supplier::create([
-            'role_id' => Supplier::SIPPLIER,
+        $data = Customar::create([
+            'role_id' => Customar::CUSTOMAR,
             'name' => $request_data->name,
             'email' => $request_data->email,
             'phone' => $request_data->phone,
-            'nid' => $request_data->nid,
-            'address' => $request_data->address,
-            'company_name' => $request_data->company_name,
             'password' => Hash::make('password'),
         ]);
-        $image_path = (new FileUploadedService())->fileUploaded($request_data,$this->path,$data);
-        $data->update([
-            'file'=>$image_path
-        ]);
+
+        // dd($request_data);
 
         return $data;
     }
@@ -89,7 +79,7 @@ class SupplierRepository implements SupplierInterface
      */
     public function show($id)
     {
-        $data = Supplier::findOrFail($id);
+        $data = Customar::findOrFail($id);
         return $data;
     }
 
@@ -100,24 +90,15 @@ class SupplierRepository implements SupplierInterface
      */
     public function update($request_data, $id)
     {
-        $data = Supplier::findOrFail($id);
-        $request_data = (object)$request_data;
-
+        $request_data =(object)$request_data;
+        $data = Customar::findOrFail($id);
         $data->update([
-           'role_id' => Supplier::ADMIN,
+            'role_id' => Customar::CUSTOMAR,
             'name' => $request_data->name,
             'email' => $request_data->email,
             'phone' => $request_data->phone,
-            'nid' => $request_data->nid,
-            'address' => $request_data->address,
-            'company_name' => $request_data->company_name,
             'password' => Hash::make('password'),
 
-        ]);
-
-        $image_path = (new FileUploadedService())->fileUploaded($request_data,$this->path,$data);
-        $data->update([
-            'file'=>$image_path
         ]);
 
         return $data;

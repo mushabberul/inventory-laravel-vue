@@ -15,7 +15,7 @@ class User extends Authenticatable
     const ADMIN=1;
     const STUFF=2;
     const CUSTOMAR=3;
-    const SIPPLIER=4;
+    const SUPPLIER=4;
 
     /**
      * The attributes that are mass assignable.
@@ -23,8 +23,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $guarded =  ['id'];
-
-
 
     /**
      * The attributes that should be hidden for serialization.
@@ -45,4 +43,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // const ADMIN=1;
+    // const STUFF=2;
+    // const CUSTOMAR=3;
+    // const SIPPLIER=4;
+
+   public function scopeCustomar($query){
+        return $query->where('role_id',User::CUSTOMAR);
+    }
+
+   public function scopeSupplier($query){
+        return $query->where('role_id',User::SUPPLIER);
+    }
+
+   public function scopeAdmin($query){
+        return $query->where('role_id',User::ADMIN);
+    }
+   public function scopeStuff($query){
+        return $query->where('role_id',User::STUFF);
+    }
 }

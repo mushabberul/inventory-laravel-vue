@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
+use App\Http\Resources\CustomarResource;
 use App\Repositories\Brand\BrandInterface;
 use App\Repositories\Brand\BrandRepository;
 use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Category\CategoryRepository;
+use App\Repositories\Customar\CustomarInterface;
+use App\Repositories\Customar\CustomarRepository;
 use App\Repositories\Supplier\SupplierInterface;
 use App\Repositories\Supplier\SupplierRepository;
 use App\Repositories\SystemSetting\SystemSettingInterface;
@@ -35,6 +38,10 @@ class RepositoryServiceProvider extends ServiceProvider
         app()->bind(
             SupplierInterface::class,
             SupplierRepository::class
+        );
+        app()->bind(
+            CustomarInterface::class,
+             CustomarRepository::class
         );
     }
 
