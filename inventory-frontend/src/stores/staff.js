@@ -3,11 +3,11 @@ import { inventoryAxiosClient } from "@/utils/systemaxios";
 import { defineStore } from "pinia";
 
 
-export const useSupplierStore = defineStore('supplier', {
+export const useStaffStore = defineStore('staff', {
     state: () => ({
         rowData: [],
-        suppliers: [],
-        supplier: null,
+        staffs: [],
+        staff: null,
         swal: null,
         errors: null,
         router: null,
@@ -18,7 +18,6 @@ export const useSupplierStore = defineStore('supplier', {
             email:null,
             nid:null,
             address:null,
-            company_name:null,
              _method: 'PUT'
         },
         limit: config.defaultDataLimit || 10,
@@ -31,12 +30,12 @@ export const useSupplierStore = defineStore('supplier', {
     }),
     getters: {},
     actions: {
-        async getAllSuppliers() {
+        async getAllStaffs() {
             try {
-                const { data } = await inventoryAxiosClient.get('all-suppliers');
+                const { data } = await inventoryAxiosClient.get('all-staffs');
                 console.log(data);
                 this.rowData = data;
-                this.suppliers = data.data;
+                this.staffs = data.data;
                 this.pagination.totalCount = data.metadata.count;
 
             } catch (error) {
@@ -49,9 +48,9 @@ export const useSupplierStore = defineStore('supplier', {
                 this.errors = error.response.data;
             }
         },
-        async getSuppliers(page = 1, limit = this.limit, search = '') {
+        async getStaffs(page = 1, limit = this.limit, search = '') {
             try {
-                const { data } = await inventoryAxiosClient.get('suppliers', {
+                const { data } = await inventoryAxiosClient.get('staffs', {
                     params: {
                         'page': page,
                         'per_page': limit,
@@ -60,7 +59,7 @@ export const useSupplierStore = defineStore('supplier', {
                 });
                 console.log(data);
                 this.rowData = data.data;
-                this.suppliers = data.data.data;
+                this.staffs = data.data.data;
                 this.pagination.totalCount = data.metadata.count;
                 this.pagination.currentPage = data.data.current_page;
                 this.pagination.lastPage = data.data.last_page;
@@ -77,22 +76,22 @@ export const useSupplierStore = defineStore('supplier', {
                 
             }
         },
-        async getSupplier(supplier_id) {
+        async getStaff(staff_id) {
             try{
-                const {data} = await inventoryAxiosClient.get(`/suppliers/${supplier_id}`);
+                const {data} = await inventoryAxiosClient.get(`/staffs/${staff_id}`);
                 this.editForm.name = data.data.name;
                 this.editForm.email = data.data.email;
                 this.editForm.phone = data.data.phone;
                 this.editForm.nid = data.data.nid;
                 this.editForm.address = data.data.address;
                 console.log(data.data);
-                this.supplier = data.data;
+                this.staff = data.data;
             }catch(error){
                 console.log(error);
             }
          },
         
-        async storeSupplier(formData) {
+        async storeStaff(formData) {
             
             try {
                 const config = {
@@ -100,15 +99,15 @@ export const useSupplierStore = defineStore('supplier', {
                         'content-type':'multipart/form-data',
                     }
                 }
-                const { data } = await inventoryAxiosClient.post('suppliers', formData,config);
+                const { data } = await inventoryAxiosClient.post('staffs', formData,config);
                 console.log(data);
                 
                 this.swal({
                     icon: 'success',
-                    title: 'Supplier Created Successfully',
+                    title: 'Staff Created Successfully',
                     timer: 1000
                 });
-                this.router.push({name:'supplier.index'});
+                this.router.push({name:'staff.index'});
             } catch (error) {
                 console.log(error);
                 this.errors = error.response.data;
@@ -119,21 +118,21 @@ export const useSupplierStore = defineStore('supplier', {
                 });
             }
         },
-        async updateSupplier(editForm,supplier_id) {
+        async updateStaff(editForm,staff_id) {
             try{
                 const config = {
                     headers:{
                         'content-type':'multipart/form-data',
                     }
                 }
-                const {data} = await inventoryAxiosClient.post(`/suppliers/${supplier_id}`,editForm,config);
+                const {data} = await inventoryAxiosClient.post(`/staffs/${staff_id}`,editForm,config);
                 console.log(data);
                 this.swal({
                     icon:'success',
                     title:'Updated Successfully',
                     timer:1000
                 });
-                this.router.push({name:'supplier.index'});
+                this.router.push({name:'staff.index'});
             }catch(error){
                 console.log(error);
                 this.errors = error.response.data;
@@ -145,9 +144,9 @@ export const useSupplierStore = defineStore('supplier', {
                 });
             }
          },
-        async deleteSupplier(id) {
+        async deleteStaff(id) {
             try {
-                const { data } = inventoryAxiosClient.delete(`/suppliers/${id}`);
+                const { data } = inventoryAxiosClient.delete(`/staffs/${id}`);
                 this.swal({
                     icon: 'success',
                     title: 'Deleted Successfully!',
@@ -163,9 +162,9 @@ export const useSupplierStore = defineStore('supplier', {
                 });
             }
         },
-        async changeStatus(supplier_id) {
+        async changeStatus(staff_id) {
             try {
-                const { data } = await inventoryAxiosClient.post(`/supplier-status/${supplier_id}`);
+                const { data } = await inventoryAxiosClient.post(`/staff-status/${staff_id}`);
                 console.log(data);
                 this.swal({
                     icon: 'success',

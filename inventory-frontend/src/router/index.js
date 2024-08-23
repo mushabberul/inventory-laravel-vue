@@ -28,9 +28,16 @@ const router = createRouter({
         {path:'/supplier/edit/:id',name:'supplier.edit',component: ()=>import('@/views/Supplier/Edit.vue')},
 
         //CRM
+        //Customar
         {path:'/customar/index',name:'customar.index',component: ()=>import('@/views/Customar/Index.vue')},
         {path:'/customar/create',name:'customar.create',component: ()=>import('@/views/Customar/Create.vue')},
         {path:'/customar/edit/:id',name:'customar.edit',component: ()=>import('@/views/Customar/Edit.vue')},
+        
+        //HRM
+        //Staff
+        {path:'/staff/index',name:'staff.index',component: ()=>import('@/views/Staff/Index.vue')},
+        {path:'/staff/create',name:'staff.create',component: ()=>import('@/views/Staff/Create.vue')},
+        {path:'/staff/edit/:id',name:'staff.edit',component: ()=>import('@/views/Staff/Edit.vue')},
       ]
     },
     {
