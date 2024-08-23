@@ -13,7 +13,7 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
     const ADMIN=1;
-    const STUFF=2;
+    const STAFF=2;
     const CUSTOMAR=3;
     const SUPPLIER=4;
 
@@ -44,10 +44,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // const ADMIN=1;
-    // const STUFF=2;
-    // const CUSTOMAR=3;
-    // const SIPPLIER=4;
 
    public function scopeCustomar($query){
         return $query->where('role_id',User::CUSTOMAR);
@@ -60,7 +56,8 @@ class User extends Authenticatable
    public function scopeAdmin($query){
         return $query->where('role_id',User::ADMIN);
     }
-   public function scopeStuff($query){
-        return $query->where('role_id',User::STUFF);
+
+   public function scopeStaff($query){
+        return $query->where('role_id',User::STAFF);
     }
 }

@@ -9,6 +9,8 @@ use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Customar\CustomarInterface;
 use App\Repositories\Customar\CustomarRepository;
+use App\Repositories\Staff\StaffInterface;
+use App\Repositories\Staff\StaffRepository;
 use App\Repositories\Supplier\SupplierInterface;
 use App\Repositories\Supplier\SupplierRepository;
 use App\Repositories\SystemSetting\SystemSettingInterface;
@@ -42,6 +44,10 @@ class RepositoryServiceProvider extends ServiceProvider
         app()->bind(
             CustomarInterface::class,
              CustomarRepository::class
+        );
+        app()->bind(
+            StaffInterface::class,
+             StaffRepository::class
         );
     }
 

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CustomarController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\StaffController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\SystemSettingController;
 use App\Http\Controllers\CategoryController;
@@ -43,4 +44,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('customar-status/{id}',[CustomarController::class,'status']);
     Route::get('all-customars',[CustomarController::class,'allCustomars']);
     Route::apiResource('customars',CustomarController::class);
+    //Staff
+    Route::post('staff-status/{id}',[StaffController::class,'status']);
+    Route::get('all-staffs',[StaffController::class,'allStaffs']);
+    Route::apiResource('staffs',StaffController::class);
 });
