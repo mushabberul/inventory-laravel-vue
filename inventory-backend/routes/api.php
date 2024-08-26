@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CustomarController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StaffController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\SystemSettingController;
@@ -48,4 +49,8 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('staff-status/{id}',[StaffController::class,'status']);
     Route::get('all-staffs',[StaffController::class,'allStaffs']);
     Route::apiResource('staffs',StaffController::class);
+    //Product
+    Route::post('product-status/{id}',[ProductController::class,'status']);
+    Route::get('all-products',[ProductController::class,'allProducts']);
+    Route::apiResource('products',ProductController::class);
 });

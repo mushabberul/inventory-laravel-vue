@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
             StuffSeeder::class,
             SystemSettingSeeder::class,
             CategorySeeder::class,
-            BrandSeeder::class
+            BrandSeeder::class,
+            ProductSeeder::class,
 
         ]);
     }

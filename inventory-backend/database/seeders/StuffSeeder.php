@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User as Stuff;
+use App\Models\User as Staff;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +17,7 @@ class StuffSeeder extends Seeder
     {
         $stuffs = [
             [
-                'role_id' => Stuff::STUFF,
+                'role_id' => Staff::STAFF,
                 'name' => "Stuff1",
                 'email' => "stuff@gmail.com",
                 'phone' => '0178888810',
@@ -30,7 +30,7 @@ class StuffSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ],
             [
-               'role_id' => Stuff::STUFF,
+               'role_id' => Staff::STAFF,
                 'name' => "Stuff2",
                 'email' => "stuff2@gmail.com",
                 'phone' => '0178888811',
@@ -43,6 +43,6 @@ class StuffSeeder extends Seeder
                 'remember_token' => Str::random(10),
             ],
         ];
-        Stuff::insert($stuffs);
+        Staff::insert($stuffs);
     }
 }

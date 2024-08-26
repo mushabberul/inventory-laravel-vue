@@ -9,6 +9,8 @@ use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Category\CategoryRepository;
 use App\Repositories\Customar\CustomarInterface;
 use App\Repositories\Customar\CustomarRepository;
+use App\Repositories\Product\ProductInterface;
+use App\Repositories\Product\ProductRepository;
 use App\Repositories\Staff\StaffInterface;
 use App\Repositories\Staff\StaffRepository;
 use App\Repositories\Supplier\SupplierInterface;
@@ -47,7 +49,11 @@ class RepositoryServiceProvider extends ServiceProvider
         );
         app()->bind(
             StaffInterface::class,
-             StaffRepository::class
+            StaffRepository::class
+        );
+        app()->bind(
+            ProductInterface::class,
+            ProductRepository::class
         );
     }
 
