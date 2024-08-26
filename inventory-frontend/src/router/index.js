@@ -26,6 +26,10 @@ const router = createRouter({
         {path:'/supplier/index',name:'supplier.index',component: ()=>import('@/views/Supplier/Index.vue')},
         {path:'/supplier/create',name:'supplier.create',component: ()=>import('@/views/Supplier/Create.vue')},
         {path:'/supplier/edit/:id',name:'supplier.edit',component: ()=>import('@/views/Supplier/Edit.vue')},
+        //Product
+        {path:'/product/index',name:'product.index',component: ()=>import('@/views/Product/Index.vue')},
+        {path:'/product/create',name:'product.create',component: ()=>import('@/views/Product/Create.vue')},
+        {path:'/product/edit/:id',name:'product.edit',component: ()=>import('@/views/Product/Edit.vue')},
 
         //CRM
         //Customar

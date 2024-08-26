@@ -30,7 +30,7 @@
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">
-                                    <span data-key="t-email">Category</span>
+                                    <span data-key="t-email">Category Management</span>
                                     <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-email">
@@ -43,7 +43,7 @@
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">
-                                    <span data-key="t-email">Brand</span>
+                                    <span data-key="t-email">Brand Management</span>
                                     <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-email">
@@ -56,13 +56,26 @@
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">
-                                    <span data-key="t-email">Supplier</span>
+                                    <span data-key="t-email">Supplier Management</span>
                                     <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-email">
                                     <RouterLink :to="{ name: 'supplier.create' }" class="dropdown-item" data-key="t-inbox">
                                         Create</RouterLink>
                                     <RouterLink :to="{ name: 'supplier.index' }" class="dropdown-item" data-key="t-inbox">
+                                        Inbox</RouterLink>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
+                                    role="button">
+                                    <span data-key="t-email">Product Management</span>
+                                    <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-email">
+                                    <RouterLink :to="{ name: 'product.create' }" class="dropdown-item" data-key="t-inbox">
+                                        Create</RouterLink>
+                                    <RouterLink :to="{ name: 'product.index' }" class="dropdown-item" data-key="t-inbox">
                                         Inbox</RouterLink>
                                 </div>
                             </div>
@@ -79,7 +92,7 @@
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-form"
                                     role="button">
-                                    <span data-key="t-forms">Staff</span>
+                                    <span data-key="t-forms">Staff Management</span>
                                     <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-form">
@@ -103,7 +116,7 @@
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-pricing"
                                     role="button">
-                                    <span data-key="t-pricing">Customar</span>
+                                    <span data-key="t-pricing">Customar Management</span>
                                     <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-pricing">
