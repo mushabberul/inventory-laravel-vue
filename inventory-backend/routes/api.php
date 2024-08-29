@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CustomarController;
+use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ExpenseCategoryController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\LoginController;
@@ -31,6 +32,8 @@ Route::controller(LoginController::class)->group(function(){
 Route::middleware('auth:sanctum')->group(function(){
     //General Setting
     Route::apiResource('system-setting',SystemSettingController::class)->only(['index','update']);
+    //Dashboard Info
+    Route::get('dashboard',[DashboardController::class,'dashboard']);
     //Category
     Route::post('category-status/{id}',[CategoryController::class,'status']);
     Route::get('all-categories',[CategoryController::class,'allCategories']);
