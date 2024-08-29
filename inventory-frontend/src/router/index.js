@@ -30,6 +30,10 @@ const router = createRouter({
         {path:'/product/index',name:'product.index',component: ()=>import('@/views/Product/Index.vue')},
         {path:'/product/create',name:'product.create',component: ()=>import('@/views/Product/Create.vue')},
         {path:'/product/edit/:id',name:'product.edit',component: ()=>import('@/views/Product/Edit.vue')},
+        //Expense Category
+        {path:'/expense/category/index',name:'expense.category.index',component: ()=>import('@/views/ExpenseCategory/Index.vue')},
+        {path:'/expense/category/create',name:'expense.category.create',component: ()=>import('@/views/ExpenseCategory/Create.vue')},
+        {path:'/expense/category/edit/:id',name:'expense.category.edit',component: ()=>import('@/views/ExpenseCategory/Edit.vue')},
 
         //CRM
         //Customar
