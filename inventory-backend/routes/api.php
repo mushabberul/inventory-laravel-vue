@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\BrandController;
 use App\Http\Controllers\Api\CustomarController;
+use App\Http\Controllers\Api\ExpenseCategoryController;
+use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\StaffController;
@@ -53,4 +55,11 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::post('product-status/{id}',[ProductController::class,'status']);
     Route::get('all-products',[ProductController::class,'allProducts']);
     Route::apiResource('products',ProductController::class);
+    //Expense Category
+    Route::get('all-expense-categoris',[ExpenseCategoryController::class,'allExpenseCategorys']);
+    Route::apiResource('expense-categoris',ExpenseCategoryController::class);
+    //Expense
+    Route::get('all-expense',[ExpenseController::class,'allExpenses']);
+    Route::apiResource('expenses',ExpenseController::class);
+
 });
