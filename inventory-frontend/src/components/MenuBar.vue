@@ -5,11 +5,11 @@
             <div class="collapse navbar-collapse" id="topnav-menu-content">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link dropdown-toggle arrow-none" href="index.html" id="topnav-dashboard"
+                        <RouterLink class="nav-link dropdown-toggle arrow-none" :to="{ name: 'dashboard' }" id="topnav-dashboard"
                             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="bx bx-home-circle icon"></i>
                             <span data-key="t-dashboard">Dashboard</span>
-                        </a>
+                        </RouterLink>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link dropdown-toggle arrow-none" href="index.html" id="topnav-dashboard"
@@ -89,6 +89,19 @@
                                     <RouterLink :to="{ name: 'expense.category.create' }" class="dropdown-item" data-key="t-inbox">
                                         Create</RouterLink>
                                     <RouterLink :to="{ name: 'expense.category.index' }" class="dropdown-item" data-key="t-inbox">
+                                        Inbox</RouterLink>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
+                                    role="button">
+                                    <span data-key="t-email">Expense Management</span>
+                                    <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-email">
+                                    <RouterLink :to="{ name: 'expense.create' }" class="dropdown-item" data-key="t-inbox">
+                                        Create</RouterLink>
+                                    <RouterLink :to="{ name: 'expense.index' }" class="dropdown-item" data-key="t-inbox">
                                         Inbox</RouterLink>
                                 </div>
                             </div>

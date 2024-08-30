@@ -1,3 +1,30 @@
+<script setup>
+//All libery import
+import { useDashboardStore } from '@/stores/dashboard';
+import { ref, reactive, onMounted,inject,watch } from 'vue';
+import { useRouter } from 'vue-router';
+import config from "@/utils/config";
+
+//All instance
+const dashboardStore = useDashboardStore();
+const router = useRouter();
+const swal = inject('$swal');
+
+dashboardStore.swal = swal;
+//All veriable
+
+
+const base_url=config.base_url;
+//All methods
+
+
+//Hooks & Computed
+onMounted(()=>{
+    dashboardStore.getAllDashboards();
+});
+
+</script>
+
 <template>
     <div class="collapse show dash-content" id="dashtoggle">
             <div class="container-fluid">
@@ -28,45 +55,38 @@
                                 <div class="row row-cols-xxl-6 row-cols-md-3 row-cols-1 g-0">
                                     <div class="col">
                                         <div class="mt-md-0 py-3 px-4 mx-2">
-                                            <p class="text-white-50 mb-2 text-truncate">Campaign Sent </p>
-                                            <h3 class="text-white mb-0">197</h3>
+                                            <p class="text-white-50 mb-2 text-truncate">Total Product </p>
+                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.product_count}}</h3>
                                         </div>
                                     </div><!-- end col -->
 
                                     <div class="col">
                                         <div class="mt-3 mt-md-0 py-3 px-4 mx-2">
-                                            <p class="text-white-50 mb-2 text-truncate">Annual Profit</p>
-                                            <h3 class="text-white mb-0">$489.4k</h3>
+                                            <p class="text-white-50 mb-2 text-truncate">Total Brand</p>
+                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.brand_count}}</h3>
+                                        </div>
+                                    </div><!-- end col -->
+                                    <div class="col">
+                                        <div class="mt-3 mt-md-0 py-3 px-4 mx-2">
+                                            <p class="text-white-50 mb-2 text-truncate">Total Category</p>
+                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.category_count}}</h3>
                                         </div>
                                     </div><!-- end col -->
 
                                     <div class="col">
                                         <div class="mt-3 mt-md-0 py-3 px-4 mx-2">
-                                            <p class="text-white-50 mb-2 text-truncate">Lead Coversation</p>
-                                            <h3 class="text-white mb-0">32.89%</h3>
+                                            <p class="text-white-50 mb-2 text-truncate">Total Supplier</p>
+                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.supplier_count}}</h3>
                                         </div>
                                     </div><!-- end col -->
 
                                     <div class="col">
                                         <div class="mt-3 mt-md-0 py-3 px-4 mx-2">
-                                            <p class="text-white-50 mb-2 text-truncate">Sales Forecast</p>
-                                            <h3 class="text-white mb-0">75.35%</h3>
+                                            <p class="text-white-50 mb-2 text-truncate">Total Customar</p>
+                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.customar_count}}</h3>
                                         </div>
                                     </div><!-- end col -->
 
-                                    <div class="col">
-                                        <div class="mt-3 mt-lg-0 py-3 px-4 mx-2">
-                                            <p class="text-white-50 mb-2 text-truncate">Daily Average Income</p>
-                                            <h3 class="text-white mb-0">$1,596.5</h3>
-                                        </div>
-                                    </div><!-- end col -->
-
-                                    <div class="col">
-                                        <div class="mt-3 mt-lg-0 py-3 px-4 mx-2">
-                                            <p class="text-white-50 mb-2 text-truncate">Annual Deals</p>
-                                            <h3 class="text-white mb-0">2,659</h3>
-                                        </div>
-                                    </div><!-- end col -->
 
                                 </div><!-- end row -->
                             </div><!-- end card body -->
