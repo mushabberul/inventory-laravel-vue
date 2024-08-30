@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ExpenseCategoryController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\SaralyController;
 use App\Http\Controllers\Api\StaffController;
 use App\Http\Controllers\Api\SupplierController;
 use App\Http\Controllers\Api\SystemSettingController;
@@ -64,5 +65,7 @@ Route::middleware('auth:sanctum')->group(function(){
     //Expense
     Route::get('all-expense',[ExpenseController::class,'allExpenses']);
     Route::apiResource('expenses',ExpenseController::class);
+    //Sarary
+    Route::apiResource('salaries',SaralyController::class);
 
 });

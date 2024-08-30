@@ -16,6 +16,8 @@ use App\Repositories\ExpenseCategory\ExpenseCategoryInterface;
 use App\Repositories\ExpenseCategory\ExpenseCategoryRepository;
 use App\Repositories\Product\ProductInterface;
 use App\Repositories\Product\ProductRepository;
+use App\Repositories\Salary\SalaryInterface;
+use App\Repositories\Salary\SalaryRepository;
 use App\Repositories\Staff\StaffInterface;
 use App\Repositories\Staff\StaffRepository;
 use App\Repositories\Supplier\SupplierInterface;
@@ -67,6 +69,10 @@ class RepositoryServiceProvider extends ServiceProvider
         app()->bind(
             ExpenseInterface::class,
             ExpenseRepository::class
+        );
+        app()->bind(
+            SalaryInterface::class,
+            SalaryRepository::class
         );
     }
 
