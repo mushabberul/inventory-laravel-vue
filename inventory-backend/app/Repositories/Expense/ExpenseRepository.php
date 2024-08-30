@@ -49,6 +49,7 @@ class ExpenseRepository implements ExpenseInterface
             'expense_category_id' => $request_data->expense_category_id,
             'staff_id' => $request_data->staff_id,
             'amount' => $request_data->amount,
+            'note' => $request_data->note,
 
         ]);
         $image_path = (new FileUploadedService())->fileUploaded($request_data,$this->file_path,$data);
@@ -84,7 +85,8 @@ class ExpenseRepository implements ExpenseInterface
            'expense_category_id' => $request_data->expense_category_id,
             'staff_id' => $request_data->staff_id,
             'amount' => $request_data->amount,
-            
+            'note' => $request_data->note,
+
         ]);
 
         $image_path = (new FileUploadedService())->fileUploaded($request_data,$this->file_path,$data);

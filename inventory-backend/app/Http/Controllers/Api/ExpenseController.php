@@ -44,7 +44,6 @@ class ExpenseController extends Controller
      */
     public function store(Request $request)
     {
-
         $validated = Validator::make($request->all(), [
             'expense_category_id' => 'required|exists:expense_categories,id',
             'staff_id' => 'required|exists:users,id',
