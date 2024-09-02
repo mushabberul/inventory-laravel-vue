@@ -82,6 +82,19 @@
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">
+                                    <span data-key="t-email">Salary Management</span>
+                                    <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-email">
+                                    <RouterLink :to="{ name: 'salary.create' }" class="dropdown-item" data-key="t-inbox">
+                                        Create</RouterLink>
+                                    <RouterLink :to="{ name: 'salary.index' }" class="dropdown-item" data-key="t-inbox">
+                                        Inbox</RouterLink>
+                                </div>
+                            </div>
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
+                                    role="button">
                                     <span data-key="t-email">Expense Category Management</span>
                                     <div class="arrow-down"></div>
                                 </a>

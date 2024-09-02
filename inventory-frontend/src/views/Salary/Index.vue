@@ -1,17 +1,17 @@
 <script setup>
 //All libery import
 import config from "@/utils/config";
-import { useExpenseStore } from '@/stores/expense';
+import { useSalaryStore } from '@/stores/salary';
 import { ref, reactive, onMounted,inject,watch } from 'vue';
 import { useRouter } from 'vue-router';
 import _ from 'lodash';
 
 //All instance
-const expenseStore = useExpenseStore();
+const salaryStore = useSalaryStore();
 const router = useRouter();
 const swal = inject('$swal');
 
-expenseStore.swal = swal;
+salaryStore.swal = swal;
 //All veriable
 const searchKeyword = ref('');
 
@@ -22,13 +22,13 @@ const searchKeyword = ref('');
 
 //Hooks & Computed
 onMounted(()=>{
-    expenseStore.getExpenses(expenseStore.pagination.currentPage,expenseStore.limit);
+    salaryStore.getSalarys(salaryStore.pagination.currentPage,salaryStore.limit);
 });
 
 watch(
     searchKeyword,
     _.debounce((current,previous)=>{
-    expenseStore.getExpenses(expenseStore.pagination.currentPage,expenseStore.limit,current);
+    salaryStore.getSalarys(salaryStore.pagination.currentPage,salaryStore.limit,current);
 },500));
 
 
@@ -43,8 +43,8 @@ watch(
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h4>Expense List</h4>
-                                <router-link class="btn btn-success" :to="{ name: 'expense.create' }">
+                                <h4>Salary List</h4>
+                                <router-link class="btn btn-success" :to="{ name: 'salary.create' }">
                                     <i class='bx bx-plus-circle'></i>
                                     Create New
                                 </router-link>
@@ -59,7 +59,7 @@ watch(
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-md-8">
-                                    Total Count: <span class="">{{ expenseStore.pagination.totalCount }}</span>
+                                    Total Count: <span class="">{{ salaryStore.pagination.totalCount }}</span>
                                 </div>
                                 <div class="col-md-4">
                                     <input type="search" v-model="searchKeyword" placeholder="Search ..." class="form-control" id="">
@@ -74,40 +74,32 @@ watch(
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
-                              
+                                
                                 <tr>
                                     <th>Serial</th>
-                                    <th>Expense Cateogry</th>
-                                    <th>Staff Name/Phone</th>
+                                    <th>Staff Name</th>
+                                    <th>Date</th>
+                                    <th>Month</th>
+                                    <th>Year</th>
                                     <th>Amount</th>
-                                    <th>note</th>                                    
-                                    <th>File</th>
+                                    <th>Type</th>
                                     <th>Action</th>
-                                   
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(expense,index) in expenseStore.expenses" :key="expense.id">
-                                    <td>{{ (expenseStore.pagination.currentPage*expenseStore.limit)-expenseStore.limit + index +1 }}</td>
-                                    
-                                    <td>{{expense.expense_category.name}}</td>
-                                    <td>{{expense.staff.name}} / {{expense.staff.phone}}</td>
-                                    <td>{{expense.amount}}</td>
-                                    <td>{{expense.note}}</td>
-                                   
+                                <tr v-for="(salary,index) in salaryStore.salaries" :key="salary.id">
+                                    <td>{{ (salaryStore.pagination.currentPage*salaryStore.limit)-salaryStore.limit + index +1 }}</td>
+                                    <td>{{salary.staff.name}}</td>
+                                    <td>{{new Date(salary.date).toDateString()}}</td>
+                                    <td>{{salary.month}}</td>
+                                    <td>{{salary.year}}</td>
+                                    <td>{{salary.amount}}</td>
+                                    <td>{{salary.type}}</td>
                                     <td>
-                                        <template v-if="expense.file">
-                                            <img width="80" height="80" :src="config.base_url+expense.file" alt="">
-                                        </template>
-                                    </td>
-                                   
-                                  
-                                    <td>
-                                        <router-link :to="{name:'expense.edit',params:{id:expense.id}}" class="btn btn-warning">
-                                           
+                                        <router-link :to="{name:'salary.edit',params:{id:salary.id}}" class="btn btn-warning">
                                             <i class='bx bxs-edit'></i>
                                         </router-link>
-                                        
+
                                         
                                     </td>
                                 </tr>
@@ -116,11 +108,11 @@ watch(
                     </div>
                     <div class="d-flex justify-content-center">
                         <v-pagination
-                            v-model="expenseStore.pagination.currentPage"
-                            :pages="expenseStore.pagination.lastPage"
+                            v-model="salaryStore.pagination.currentPage"
+                            :pages="salaryStore.pagination.lastPage"
                             :range-size="1"
                             active-color="#DCEDFF"
-                            @update:modelValue="expenseStore.getExpenses(expenseStore.pagination.currentPage,expenseStore.limit);"
+                            @update:modelValue="salaryStore.getSalarys(salaryStore.pagination.currentPage,salaryStore.limit);"
                         />
                     </div>
                 </div>

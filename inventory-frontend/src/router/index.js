@@ -38,6 +38,10 @@ const router = createRouter({
         {path:'/expense/index',name:'expense.index',component: ()=>import('@/views/Expense/Index.vue')},
         {path:'/expense/create',name:'expense.create',component: ()=>import('@/views/Expense/Create.vue')},
         {path:'/expense/edit/:id',name:'expense.edit',component: ()=>import('@/views/Expense/Edit.vue')},
+        //Salary
+        {path:'/salary/index',name:'salary.index',component: ()=>import('@/views/Salary/Index.vue')},
+        {path:'/salary/create',name:'salary.create',component: ()=>import('@/views/Salary/Create.vue')},
+        {path:'/salary/edit/:id',name:'salary.edit',component: ()=>import('@/views/Salary/Edit.vue')},
 
 
         //CRM
