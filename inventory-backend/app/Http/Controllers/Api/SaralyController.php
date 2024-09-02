@@ -6,8 +6,10 @@ use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SalaryResource;
+use App\Models\Salary;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Salary\SalaryInterface;
+use Exception;
 
 class SaralyController extends Controller
 {
@@ -51,12 +53,18 @@ class SaralyController extends Controller
             'year' => 'required',
             'amount' => 'required|min:0',
             'type' => 'nullable|string',
-
         ])->validate();
 
+        try{
 
-        $data = $this->salaryRepository->store($validated);
-        return $this->success('Salary Create Successfully', $data);
+            $data = $this->salaryRepository->store($validated);
+            return $this->success('Salary Create Successfully', $data);
+
+        }catch(Exception $e){
+            dd($e);
+        }
+
+
     }
 
     /**

@@ -3,12 +3,15 @@
 namespace App\Repositories\Salary;
 
 use App\Models\Salary;
+use App\Models\User;
+use App\Notifications\SalaryPaid;
 use Illuminate\Support\Str;
 use App\Service\FileUploadedService;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\Salary\SalaryInterface;
 use App\Service\BarCodeService;
 use App\Service\QrCodeService;
+use Illuminate\Support\Facades\Notification;
 
 class SalaryRepository implements SalaryInterface
 {
@@ -52,6 +55,14 @@ class SalaryRepository implements SalaryInterface
             'type' => $request_data->type
 
         ]);
+
+        $staff = User::find($data->staff_id);
+        $details = [
+            'subject' => "Salary Disbursed for the $data->month / $data->year",
+            'message' => "Dear $staff->name, your salary for the month: $data->month / $data->year has been disbursed.
+            Please collect the cheque from accounts department"
+        ];
+        Notification::send($staff, new SalaryPaid($details));
 
         return $data;
     }
