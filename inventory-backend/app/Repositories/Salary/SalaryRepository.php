@@ -34,6 +34,9 @@ class SalaryRepository implements SalaryInterface
      */
     public function allWithPagination($per_page){
         $data = Salary::with('staff')
+        ->when(request('search'),function($query){
+            $query->where('type','like','%'.request('search').'%');
+        })
         ->latest('id')
         ->paginate($per_page);
         return $data;
@@ -97,16 +100,5 @@ class SalaryRepository implements SalaryInterface
         ]);
 
         return $data;
-    }
-
-    /**
-     * @param int $id
-     * @return bool
-     */
-    public function delete($id)
-    {
-        $data = $this->show($id);
-        $data->delete();
-        return true;
     }
 }

@@ -18,7 +18,7 @@ class ExpenseRepository implements ExpenseInterface
      */
     public function all()
     {
-        $data = Expense::with('expenseCategory','staff')
+        $data = Expense::with('expense_category','staff')
         ->latest()
         ->get();
         return $data;
@@ -29,8 +29,10 @@ class ExpenseRepository implements ExpenseInterface
      * @return mixed
      */
     public function allWithPagination($per_page){
-        $data = Expense::with('expenseCategory','staff')
-
+        $data = Expense::with('expense_category','staff')
+        ->when(request('search'),function($query){
+            $query->where('name','like','%',request('search'),'%');
+        })
         ->latest('id')
         ->paginate($per_page);
         return $data;

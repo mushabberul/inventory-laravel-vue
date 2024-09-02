@@ -90,18 +90,8 @@ class SaralyController extends Controller
             'type' => 'nullable|string',
         ])->validate();
 
-
         $data = $this->salaryRepository->update($validated, $id);
         return $this->success('Salary Create Successfully', $data);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        $data = $this->salaryRepository->delete($id);
-        return $this->success('Salary Deleted Successfully');
     }
 
 }
