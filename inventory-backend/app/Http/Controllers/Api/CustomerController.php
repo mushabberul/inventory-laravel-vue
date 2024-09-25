@@ -5,41 +5,41 @@ namespace App\Http\Controllers\Api;
 use App\Traits\ApiResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CustomarResource;
+use App\Http\Resources\CustomerResource;
 use Illuminate\Support\Facades\Validator;
-use App\Repositories\Customar\CustomarInterface;
+use App\Repositories\Customer\CustomerInterface;
 
-class CustomarController extends Controller
+class CustomerController extends Controller
 {
-    private $customarRepository;
+    private $customerRepository;
     use ApiResponse;
 
-    function __construct(CustomarInterface $customarRepository){
+    function __construct(CustomerInterface $customerRepository){
 
-       
-        $this->customarRepository = $customarRepository;
+
+        $this->customerRepository = $customerRepository;
     }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-
+       
         $per_page = request('per_page');
-        $data = $this->customarRepository->allWithPagination($per_page);
+        $data = $this->customerRepository->allWithPagination($per_page);
         $metadata['count'] = count($data);
 
-        return $this->success('Customar List',$data,$metadata);
+        return $this->success('Customer List',$data,$metadata);
 
     }
     /**
      * @param int $par_page
      */
-    public function allCustomars()
+    public function allCustomers()
     {
-        $data = $this->customarRepository->all();
+        $data = $this->customerRepository->all();
         $metadata['count']= count($data);
-        return $this->success('Customar List',$data,$metadata);
+        return $this->success('Customer List',$data,$metadata);
     }
 
     /**
@@ -53,8 +53,8 @@ class CustomarController extends Controller
             'email'=>'nullable|email',
         ])->validate();
 
-        $data = $this->customarRepository->store($validated);
-        return $this->success('Customar Create Successfully', (new CustomarResource($data)));
+        $data = $this->customerRepository->store($validated);
+        return $this->success('Customer Create Successfully', (new CustomerResource($data)));
     }
 
     /**
@@ -62,8 +62,8 @@ class CustomarController extends Controller
      */
     public function show(string $id)
     {
-        $data = $this->customarRepository->show($id);
-        return $this->success('Customar Data',$data);
+        $data = $this->customerRepository->show($id);
+        return $this->success('Customer Data',$data);
     }
 
     /**
@@ -79,8 +79,8 @@ class CustomarController extends Controller
         ])->validate();
 
 
-        $data = $this->customarRepository->update($validated,$id);
-        return $this->success('Customar Create Successfully',$data);
+        $data = $this->customerRepository->update($validated,$id);
+        return $this->success('Customer Create Successfully',$data);
     }
 
     /**
@@ -88,15 +88,15 @@ class CustomarController extends Controller
      */
     public function destroy(string $id)
     {
-        $data = $this->customarRepository->delete($id);
-        return $this->success('Customar Deleted Successfully');
+        $data = $this->customerRepository->delete($id);
+        return $this->success('Customer Deleted Successfully');
     }
     /**
      * Change status resource from storage.
      */
     public function status(string $id)
     {
-        $data = $this->customarRepository->status($id);
-        return $this->success('Customar Status Updated Successfully',$data);
+        $data = $this->customerRepository->status($id);
+        return $this->success('Customer Status Updated Successfully',$data);
     }
 }

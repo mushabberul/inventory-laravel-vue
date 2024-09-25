@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Repositories\Customar;
+namespace App\Repositories\Customer;
 
 use Illuminate\Support\Str;
-use App\Models\User as Customar;
+use App\Models\User as Customer;
 use Illuminate\Support\Facades\Hash;
-use App\Repositories\Customar\CustomarInterface;
+use App\Repositories\Customer\CustomerInterface;
 
 
-class CustomarRepository implements CustomarInterface
+class CustomerRepository implements CustomerInterface
 {
     /**
      * @return Mixed
      */
     public function all()
     {
-        $data = Customar::customar()
+
+        $data = Customer::customer()
         ->latest()
         ->get();
         return $data;
@@ -26,7 +27,7 @@ class CustomarRepository implements CustomarInterface
      * @return mixed
      */
     public function allWithPagination($per_page){
-        $data = Customar::customar()
+        $data = Customer::customer()
         ->latest('id')
         ->when(request('search'),function($query){
             $query->where('name','like','%'.request('search').'%');
@@ -40,7 +41,7 @@ class CustomarRepository implements CustomarInterface
      * @return mixed
      */
     public function status($id){
-        $data = Customar::findOrFail($id);
+        $data = Customer::findOrFail($id);
 
         if($data->status == 1){
             $data->status = 0;
@@ -60,8 +61,8 @@ class CustomarRepository implements CustomarInterface
     public function store($request_data)
     {
         $request_data = (object)$request_data;
-        $data = Customar::create([
-            'role_id' => Customar::CUSTOMAR,
+        $data = Customer::create([
+            'role_id' => Customer::CUSTOMER,
             'name' => $request_data->name,
             'email' => $request_data->email,
             'phone' => $request_data->phone,
@@ -79,7 +80,7 @@ class CustomarRepository implements CustomarInterface
      */
     public function show($id)
     {
-        $data = Customar::findOrFail($id);
+        $data = Customer::findOrFail($id);
         return $data;
     }
 
@@ -91,9 +92,9 @@ class CustomarRepository implements CustomarInterface
     public function update($request_data, $id)
     {
         $request_data =(object)$request_data;
-        $data = Customar::findOrFail($id);
+        $data = Customer::findOrFail($id);
         $data->update([
-            'role_id' => Customar::CUSTOMAR,
+            'role_id' => Customer::CUSTOMER,
             'name' => $request_data->name,
             'email' => $request_data->email,
             'phone' => $request_data->phone,

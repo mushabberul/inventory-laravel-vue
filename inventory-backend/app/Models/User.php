@@ -14,7 +14,7 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable,SoftDeletes;
     const ADMIN=1;
     const STAFF=2;
-    const CUSTOMAR=3;
+    const CUSTOMER=3;
     const SUPPLIER=4;
 
     /**
@@ -45,8 +45,8 @@ class User extends Authenticatable
     ];
 
 
-   public function scopeCustomar($query){
-        return $query->where('role_id',User::CUSTOMAR);
+   public function scopeCustomer($query){
+        return $query->where('role_id',User::CUSTOMER);
     }
 
    public function scopeSupplier($query){

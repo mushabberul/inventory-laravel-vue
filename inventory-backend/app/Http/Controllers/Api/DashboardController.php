@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $data['brand_count'] = Brand::count();
         $data['category_count'] = Category::count();
         $data['product_count'] = Product::count();
-        $data['customar_count'] = User::customar()->count();
+        $data['customer_count'] = User::customer()->count();
         $data['supplier_count'] = User::supplier()->count();
 
         return $this->success('Dashboard Info',$data);

@@ -3,32 +3,32 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\User as Customar;
+use App\Models\User as Customer;
 use Illuminate\Support\Facades\Hash;
 
-class CustomarSeeder extends Seeder
+class CustomerSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        $customars = [
+        $customers = [
             [
-                'role_id' => Customar::CUSTOMAR,
-                'name' => "Customar1",
-                'email' => "customar1@gmail.com",
+                'role_id' => Customer::CUSTOMER,
+                'name' => "Customer1",
+                'email' => "customer1@gmail.com",
                 'phone' => '0158888888',
                 'password' => Hash::make('password'),
             ],
             [
-                'role_id' => Customar::CUSTOMAR,
-                'name' => "Customar2",
-                'email' => "customar2@gmail.com",
+                'role_id' => Customer::CUSTOMER,
+                'name' => "Customer2",
+                'email' => "customer2@gmail.com",
                 'phone' => '0158888889',
                 'password' => Hash::make('password'),
             ],
         ];
-        Customar::insert($customars);
+        Customer::insert($customers);
     }
 }

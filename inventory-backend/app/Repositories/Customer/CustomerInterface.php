@@ -1,7 +1,7 @@
 <?php
-namespace App\Repositories\Customar;
+namespace App\Repositories\Customer;
 
-interface CustomarInterface{
+interface CustomerInterface{
    public function all();
    public function allWithPagination($per_page);
    public function status($id);

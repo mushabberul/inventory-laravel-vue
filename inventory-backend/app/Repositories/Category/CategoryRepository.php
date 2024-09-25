@@ -28,6 +28,7 @@ class CategoryRepository implements CategoryInterface
         ->when(request('search'),function($query){
             $query->where('name','like','%'.request('search').'%');
         })
+        
         ->paginate($per_page);
         return $data;
     }

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('role_id')->default(2)->comment="1:Admin,2:Stuff,3:Customar,4:Supplier";
+            $table->foreignId('role_id')->default(2)->comment="1:Admin,2:Stuff,3:Customer,4:Supplier";
             $table->string('name');
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('nid')->nullable();
             $table->string('address')->nullable();

@@ -2,18 +2,22 @@
 
 namespace App\Providers;
 
-use App\Http\Resources\CustomarResource;
+use App\Http\Resources\CustomerResource;
 use App\Http\Resources\ExpenseCategoryResource;
 use App\Repositories\Brand\BrandInterface;
 use App\Repositories\Brand\BrandRepository;
+use App\Repositories\Cart\CartInterface;
+use App\Repositories\Cart\CartRepository;
 use App\Repositories\Category\CategoryInterface;
 use App\Repositories\Category\CategoryRepository;
-use App\Repositories\Customar\CustomarInterface;
-use App\Repositories\Customar\CustomarRepository;
+use App\Repositories\Customer\CustomerInterface;
+use App\Repositories\Customer\CustomerRepository;
 use App\Repositories\Expense\ExpenseInterface;
 use App\Repositories\Expense\ExpenseRepository;
 use App\Repositories\ExpenseCategory\ExpenseCategoryInterface;
 use App\Repositories\ExpenseCategory\ExpenseCategoryRepository;
+use App\Repositories\Order\OrderInterface;
+use App\Repositories\Order\OrderRepository;
 use App\Repositories\Product\ProductInterface;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Salary\SalaryInterface;
@@ -51,8 +55,8 @@ class RepositoryServiceProvider extends ServiceProvider
             SupplierRepository::class
         );
         app()->bind(
-            CustomarInterface::class,
-             CustomarRepository::class
+            CustomerInterface::class,
+             CustomerRepository::class
         );
         app()->bind(
             StaffInterface::class,
@@ -73,6 +77,14 @@ class RepositoryServiceProvider extends ServiceProvider
         app()->bind(
             SalaryInterface::class,
             SalaryRepository::class
+        );
+        app()->bind(
+            CartInterface::class,
+            CartRepository::class
+        );
+        app()->bind(
+            OrderInterface::class,
+            OrderRepository::class
         );
     }
 

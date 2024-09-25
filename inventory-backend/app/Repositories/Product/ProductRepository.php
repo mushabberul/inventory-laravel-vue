@@ -34,6 +34,12 @@ class ProductRepository implements ProductInterface
      */
     public function allWithPagination($per_page){
         $data = Product::with('category','brand','supplier')
+        ->when(request('category_id'), function($query){
+            $query->where('category_id',request('category_id'));
+        })
+        ->when(request('brand_id'), function($query){
+            $query->where('brand_id',request('brand_id'));
+        })
 
         ->latest('id')
         ->paginate($per_page);

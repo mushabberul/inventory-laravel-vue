@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -20,23 +21,28 @@ class LoginController extends Controller
         }
         $validated = $validator->validate();
 
-        if(Auth::attempt($validated,true)){
-            $user = Auth::user();
-            $token = $user->createToken('Sabbir')->plainTextToken;
-            return response()->json([
-                'status'=>'success',
-                'message'=>'Login Successfully',
-                'data'=>[
-                    'token'=>$token,
-                    'user'=>$user,
-                ]
-                ]);
-        }else{
-            return response()->json([
-                'status'=>'error',
-                'message'=>'Unauthenticated'
-                ],400);
+        try{
+            if(Auth::attempt($validated,true)){
+                $user = Auth::user();
+                $token = $user->createToken('Sabbir')->plainTextToken;
+                return response()->json([
+                    'status'=>'success',
+                    'message'=>'Login Successfully',
+                    'data'=>[
+                        'token'=>$token,
+                        'user'=>$user,
+                    ]
+                    ]);
+            }else{
+                return response()->json([
+                    'status'=>'error',
+                    'message'=>'Unauthenticated'
+                    ],400);
+            }
+        }catch(Exception $e){
+            dd($e);
         }
+
 
 
     }

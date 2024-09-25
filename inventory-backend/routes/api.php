@@ -1,11 +1,13 @@
 <?php
 
 use App\Http\Controllers\Api\BrandController;
-use App\Http\Controllers\Api\CustomarController;
+use App\Http\Controllers\Api\CartController;
+use App\Http\Controllers\Api\CustomerController;
 use App\Http\Controllers\Api\DashboardController;
 use App\Http\Controllers\Api\ExpenseCategoryController;
 use App\Http\Controllers\Api\ExpenseController;
 use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SaralyController;
 use App\Http\Controllers\Api\StaffController;
@@ -44,13 +46,13 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::get('all-brands',[BrandController::class,'allBrands']);
     Route::apiResource('brands',BrandController::class);
     //Supplier
-    Route::post('customar-status/{id}',[SupplierController::class,'status']);
+    Route::post('customer-status/{id}',[SupplierController::class,'status']);
     Route::get('all-suppliers',[SupplierController::class,'allSuppliers']);
     Route::apiResource('suppliers',SupplierController::class);
-    //Customar
-    Route::post('customar-status/{id}',[CustomarController::class,'status']);
-    Route::get('all-customars',[CustomarController::class,'allCustomars']);
-    Route::apiResource('customars',CustomarController::class);
+    //Customer
+    Route::post('customer-status/{id}',[CustomerController::class,'status']);
+    Route::get('all-customers',[CustomerController::class,'allCustomers']);
+    Route::apiResource('customers',CustomerController::class);
     //Staff
     Route::post('staff-status/{id}',[StaffController::class,'status']);
     Route::get('all-staffs',[StaffController::class,'allStaffs']);
@@ -65,7 +67,19 @@ Route::middleware('auth:sanctum')->group(function(){
     //Expense
     Route::get('all-expense',[ExpenseController::class,'allExpenses']);
     Route::apiResource('expenses',ExpenseController::class);
-    //Sarary
+    //Salary
     Route::apiResource('salaries',SaralyController::class);
+    //Cart
+    Route::controller(CartController::class)->group(function(){
+        Route::get('carts','carts');
+        Route::post('add-to-cart','addToCart');
+        Route::get('remove-cart-item/{id}','RemoveCartItem');
+        Route::get('increase-cart-item/{id}','increaseCartItem');
+        Route::get('decrease-cart-item/{id}','decreaseCartItem');
+    });
+
+    //Order
+    Route::get('all-orders',[OrderController::class,'allOrders']);
+    Route::apiResource('orders',OrderController::class);
 
 });
