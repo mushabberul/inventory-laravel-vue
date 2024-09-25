@@ -3,11 +3,11 @@ import { inventoryAxiosClient } from "@/utils/systemaxios";
 import { defineStore } from "pinia";
 
 
-export const useCustomarStore = defineStore('customar', {
+export const useCustomerStore = defineStore('customer', {
     state: () => ({
         rowData: [],
-        customars: [],
-        customar: null,
+        customers: [],
+        customer: null,
         swal: null,
         errors: null,
         router: null,
@@ -27,12 +27,12 @@ export const useCustomarStore = defineStore('customar', {
     }),
     getters: {},
     actions: {
-        async getAllCustomars() {
+        async getAllCustomers() {
             try {
-                const { data } = await inventoryAxiosClient.get('all-customars');
+                const { data } = await inventoryAxiosClient.get('all-customers');
                 console.log(data);
                 this.rowData = data;
-                this.customars = data.data;
+                this.customers = data.data;
                 this.pagination.totalCount = data.metadata.count;
 
             } catch (error) {
@@ -45,9 +45,9 @@ export const useCustomarStore = defineStore('customar', {
                 this.errors = error.response.data;
             }
         },
-        async getCustomars(page = 1, limit = this.limit, search = '') {
+        async getCustomers(page = 1, limit = this.limit, search = '') {
             try {
-                const { data } = await inventoryAxiosClient.get('customars', {
+                const { data } = await inventoryAxiosClient.get('customers', {
                     params: {
                         'page': page,
                         'per_page': limit,
@@ -56,7 +56,7 @@ export const useCustomarStore = defineStore('customar', {
                 });
                 console.log(data);
                 this.rowData = data.data;
-                this.customars = data.data.data;
+                this.customers = data.data.data;
                 this.pagination.totalCount = data.metadata.count;
                 this.pagination.currentPage = data.data.current_page;
                 this.pagination.lastPage = data.data.last_page;
@@ -73,9 +73,9 @@ export const useCustomarStore = defineStore('customar', {
                 
             }
         },
-        async getCustomar(customar_id) {
+        async getCustomer(customer_id) {
             try{
-                const {data} = await inventoryAxiosClient.get(`/customars/${customar_id}`);
+                const {data} = await inventoryAxiosClient.get(`/customers/${customer_id}`);
                 this.editForm.name = data.data.name;
                 this.editForm.email = data.data.email;
                 this.editForm.phone = data.data.phone;
@@ -83,13 +83,13 @@ export const useCustomarStore = defineStore('customar', {
                 this.editForm.address = data.data.address;
                 this.editForm.company_name = data.data.company_name;
                 console.log(data.data);
-                this.customar = data.data;
+                this.customer = data.data;
             }catch(error){
                 console.log(error);
             }
          },
         
-        async storeCustomar(formData) {
+        async storeCustomer(formData) {
             
             try {
                 const config = {
@@ -97,15 +97,15 @@ export const useCustomarStore = defineStore('customar', {
                         'content-type':'multipart/form-data',
                     }
                 }
-                const { data } = await inventoryAxiosClient.post('customars', formData,config);
+                const { data } = await inventoryAxiosClient.post('customers', formData,config);
                 console.log(data);
                 
                 this.swal({
                     icon: 'success',
-                    title: 'Customar Created Successfully',
+                    title: 'Customer Created Successfully',
                     timer: 1000
                 });
-                this.router.push({name:'customar.index'});
+                this.router.push({name:'customer.index'});
             } catch (error) {
                 console.log(error);
                 this.errors = error.response.data;
@@ -116,17 +116,17 @@ export const useCustomarStore = defineStore('customar', {
                 });
             }
         },
-        async updateCustomar(editForm,customar_id) {
+        async updateCustomer(editForm,customer_id) {
             try{
                 
-                const {data} = await inventoryAxiosClient.put(`/customars/${customar_id}`,editForm);
+                const {data} = await inventoryAxiosClient.put(`/customers/${customer_id}`,editForm);
                 console.log(data);
                 this.swal({
                     icon:'success',
                     title:'Updated Successfully',
                     timer:1000
                 });
-                this.router.push({name:'customar.index'});
+                this.router.push({name:'customer.index'});
             }catch(error){
                 console.log(error);
                 this.errors = error.response.data;
@@ -138,9 +138,9 @@ export const useCustomarStore = defineStore('customar', {
                 });
             }
          },
-        async deleteCustomar(id) {
+        async deleteCustomer(id) {
             try {
-                const { data } = inventoryAxiosClient.delete(`/customars/${id}`);
+                const { data } = inventoryAxiosClient.delete(`/customers/${id}`);
                 this.swal({
                     icon: 'success',
                     title: 'Deleted Successfully!',
@@ -156,9 +156,9 @@ export const useCustomarStore = defineStore('customar', {
                 });
             }
         },
-        async changeStatus(customar_id) {
+        async changeStatus(customer_id) {
             try {
-                const { data } = await inventoryAxiosClient.post(`/customar-status/${customar_id}`);
+                const { data } = await inventoryAxiosClient.post(`/customer-status/${customer_id}`);
                 console.log(data);
                 this.swal({
                     icon: 'success',

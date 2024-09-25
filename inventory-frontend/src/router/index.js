@@ -12,6 +12,7 @@ const router = createRouter({
       meta:{requiresAuth:true},
       children:[
         {path:'/dashboard',name:'dashboard',component: ()=>import('@/views/Dashboard.vue')},
+        {path:'/pos',name:'pos.index',component: ()=>import('@/views/POS/Index.vue')},
 
         //Inventory
         //Category
@@ -45,10 +46,10 @@ const router = createRouter({
 
 
         //CRM
-        //Customar
-        {path:'/customar/index',name:'customar.index',component: ()=>import('@/views/Customar/Index.vue')},
-        {path:'/customar/create',name:'customar.create',component: ()=>import('@/views/Customar/Create.vue')},
-        {path:'/customar/edit/:id',name:'customar.edit',component: ()=>import('@/views/Customar/Edit.vue')},
+        //Customer
+        {path:'/customer/index',name:'customer.index',component: ()=>import('@/views/Customer/Index.vue')},
+        {path:'/customer/create',name:'customer.create',component: ()=>import('@/views/Customer/Create.vue')},
+        {path:'/customer/edit/:id',name:'customer.edit',component: ()=>import('@/views/Customer/Edit.vue')},
         
         //HRM
         //Staff

@@ -12,6 +12,7 @@
     "@hennge/vue3-pagination": "^1.0.17",
     "@vee-validate/rules": "^4.13.2",
     "axios": "^1.7.2",
+    "bootstrap": "^5.3.3",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.21",
     "pinia": "^2.1.7",

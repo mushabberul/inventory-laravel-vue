@@ -12,11 +12,11 @@
                         </RouterLink>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link dropdown-toggle arrow-none" href="index.html" id="topnav-dashboard"
+                        <router-link class="nav-link dropdown-toggle arrow-none" :to="{name: 'pos.index'}" id="topnav-dashboard"
                             role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="bx bx-cart icon"></i>
                             <span data-key="t-dashboard">POS</span>
-                        </a>
+                        </router-link>
                     </li>
 
                     <li class="nav-item dropdown">
@@ -155,13 +155,13 @@
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-pricing"
                                     role="button">
-                                    <span data-key="t-pricing">Customar Management</span>
+                                    <span data-key="t-pricing">Customer Management</span>
                                     <div class="arrow-down"></div>
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="topnav-pricing">
-                                    <RouterLink :to="{ name: 'customar.create' }" class="dropdown-item" data-key="t-inbox">
+                                    <RouterLink :to="{ name: 'customer.create' }" class="dropdown-item" data-key="t-inbox">
                                         Create</RouterLink>
-                                    <RouterLink :to="{ name: 'customar.index' }" class="dropdown-item" data-key="t-inbox">
+                                    <RouterLink :to="{ name: 'customer.index' }" class="dropdown-item" data-key="t-inbox">
                                         Inbox</RouterLink>
                                 </div>
                             </div>

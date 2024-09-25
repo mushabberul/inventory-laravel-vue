@@ -3,28 +3,14 @@ import { inventoryAxiosClient } from "@/utils/systemaxios";
 import { defineStore } from "pinia";
 
 
-export const useProductStore = defineStore('product', {
+export const useOrderStore = defineStore('order', {
     state: () => ({
         rowData: [],
-        products: [],
-        product: null,
+        orders: [],
+        order: null,
         swal: null,
         errors: null,
         router: null,
-        editForm:{
-            category_id: null,
-            brand_id: null,
-            supplier_id: null,
-            name: null,
-            slug: null,
-            original_price: null,
-            sell_price:null,
-            stock:null,
-            description:null,
-            code:null,
-            file:null,
-             _method: 'PUT'
-        },
         
         limit: config.defaultDataLimit || 10,
         pagination: {
@@ -32,16 +18,17 @@ export const useProductStore = defineStore('product', {
             lastPage: 0,
             totalCount: 0
         },
+        payment_method: ['cash', 'card', 'bkash'],
         dataLimit: config.defaultDataLimit,
     }),
     getters: {},
     actions: {
-        async getAllProducts() {
+        async getAllOrders() {
             try {
-                const { data } = await inventoryAxiosClient.get('all-products');
+                const { data } = await inventoryAxiosClient.get('all-orders');
                 console.log(data);
                 this.rowData = data;
-                this.products = data.data;
+                this.orders = data.data;
                 this.pagination.totalCount = data.metadata.count;
 
             } catch (error) {
@@ -54,23 +41,13 @@ export const useProductStore = defineStore('product', {
                 this.errors = error.response.data;
             }
         },
-        async getProducts(page = 1, limit = this.limit, search = '',filter={}) {
+        async getOrders(page = 1, limit = this.limit, search = '') {
             try {
-                const params= {
-                    'page': page,
-                    'per_page': limit,
-                    'search': search,
-                };
-                if(filter.category_id !== null){
-                    params['category_id'] = filter.category_id;
-                }
-                if(filter.brand_id !== null){
-                    params['brand_id'] = filter.brand_id;
-                }
-                const { data } = await inventoryAxiosClient.get('products', {params});
+              
+                const { data } = await inventoryAxiosClient.get('orders');
                 console.log(data);
                 this.rowData = data.data;
-                this.products = data.data.data;
+                this.orders = data.data.data;
                 this.pagination.totalCount = data.metadata.count;
                 this.pagination.currentPage = data.data.current_page;
                 this.pagination.lastPage = data.data.last_page;
@@ -87,9 +64,9 @@ export const useProductStore = defineStore('product', {
                 
             }
         },
-        async getProduct(product_id) {
+        async getOrder(order_id) {
             try{
-                const {data} = await inventoryAxiosClient.get(`/products/${product_id}`);
+                const {data} = await inventoryAxiosClient.get(`/orders/${order_id}`);
 
                 this.editForm.category_id = data.data.category_id;
                 this.editForm.brand_id = data.data.brand_id;
@@ -102,29 +79,25 @@ export const useProductStore = defineStore('product', {
                 this.editForm.description = data.data.description;
                 this.editForm.code = data.data.code;
                 console.log(data.data);
-                this.product = data.data;
+                this.order = data.data;
             }catch(error){
                 console.log(error);
             }
          },
         
-        async storeProduct(formData) {
+        async storeOrder(formData) {
             
             try {
-                const config = {
-                    headers:{
-                        'content-type':'multipart/form-data',
-                    }
-                }
-                const { data } = await inventoryAxiosClient.post('products', formData,config);
+                
+                const { data } = await inventoryAxiosClient.post('orders', formData);
                 console.log(data);
                 
                 this.swal({
                     icon: 'success',
-                    title: 'Product Created Successfully',
+                    title: 'Order Created Successfully',
                     timer: 1000
                 });
-                this.router.push({name:'product.index'});
+                this.router.push({name:'order.index'});
             } catch (error) {
                 console.log(error);
                 this.errors = error.response.data;
@@ -135,21 +108,21 @@ export const useProductStore = defineStore('product', {
                 });
             }
         },
-        async updateProduct(editForm,product_id) {
+        async updateOrder(editForm,order_id) {
             try{
                 const config = {
                     headers:{
                         'content-type':'multipart/form-data',
                     }
                 }
-                const {data} = await inventoryAxiosClient.post(`/products/${product_id}`,editForm,config);
+                const {data} = await inventoryAxiosClient.post(`/orders/${order_id}`,editForm,config);
                 console.log(data);
                 this.swal({
                     icon:'success',
                     title:'Updated Successfully',
                     timer:1000
                 });
-                this.router.push({name:'product.index'});
+                this.router.push({name:'order.index'});
             }catch(error){
                 console.log(error);
                 this.errors = error.response.data;
@@ -161,9 +134,9 @@ export const useProductStore = defineStore('product', {
                 });
             }
          },
-        async deleteProduct(id) {
+        async deleteOrder(id) {
             try {
-                const { data } = inventoryAxiosClient.delete(`/products/${id}`);
+                const { data } = inventoryAxiosClient.delete(`/orders/${id}`);
                 this.swal({
                     icon: 'success',
                     title: 'Deleted Successfully!',
@@ -179,26 +152,6 @@ export const useProductStore = defineStore('product', {
                 });
             }
         },
-        async changeStatus(product_id) {
-         
-            try {
-                const { data } = await inventoryAxiosClient.post(`/product-status/${product_id}`);
-                console.log(data);
-                this.swal({
-                    icon: 'success',
-                    title: 'Status Updated',
-                    timer: 1000
-                });
-            } catch (error) {
-                console.log(error);
-                this.errors = error.response.data;
-                this.swal({
-                    icon: 'error',
-                    title: 'Something Went Wrong',
-                    timer: 100,
-                    text: this.errors.message
-                });
-            }
-        }
+       
     }
 });

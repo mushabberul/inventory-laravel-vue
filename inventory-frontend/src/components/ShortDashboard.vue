@@ -82,8 +82,8 @@ onMounted(()=>{
 
                                     <div class="col">
                                         <div class="mt-3 mt-md-0 py-3 px-4 mx-2">
-                                            <p class="text-white-50 mb-2 text-truncate">Total Customar</p>
-                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.customar_count}}</h3>
+                                            <p class="text-white-50 mb-2 text-truncate">Total Customer</p>
+                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.customer_count}}</h3>
                                         </div>
                                     </div><!-- end col -->
 

@@ -51,7 +51,7 @@ export const useCategoryStore = defineStore('category', {
                     params: {
                         'page': page,
                         'per_page': limit,
-                        'search': search
+                        'search': search,
                     }
                 });
                 console.log(data);

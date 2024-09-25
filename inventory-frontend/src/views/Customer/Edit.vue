@@ -1,33 +1,32 @@
 <script setup>
 // All import 
-import { useRouter } from 'vue-router';
-import { useCustomarStore } from '@/stores/customar';
-import { reactive, inject } from 'vue';
+import { useRouter,useRoute } from 'vue-router';
+import { useCustomerStore } from '@/stores/customer';
+import { reactive, inject,onMounted } from 'vue';
 //All instance
 
 const router = useRouter();
-const customarStore = useCustomarStore();
+const customerStore = useCustomerStore();
 const swal = inject('$swal');
+const route = useRoute();
 //All variable
-customarStore.router = router;
-customarStore.swal = swal;
-const formData = reactive({
-    name: null,
-    phone: null,
-    email:null,
-   
-});
+customerStore.router = router;
+customerStore.swal = swal;
+
 
 const schema = reactive({
-    name: 'required',
-    email: 'required',
+    name: 'required'
 });
 //All methods
 
-const StoreCustomar = () => {
-    customarStore.storeCustomar(formData);
+const UpdateCustomer = () => {
+    customerStore.updateCustomer(customerStore.editForm,route.params.id);
 };
 //hooks and computed
+
+onMounted(()=>{
+    customerStore.getCustomer(route.params.id)
+});
 </script>
 
 <template>
@@ -39,10 +38,10 @@ const StoreCustomar = () => {
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
-                                <h4>Customar Create</h4>
-                                <RouterLink class="btn btn-success" :to="{ name: 'customar.index' }">
+                                <h4>Customer Create</h4>
+                                <RouterLink class="btn btn-success" :to="{ name: 'customer.index' }">
                                     <i class='bx bx-arrow-back'></i>
-                                    Customar Index
+                                    Customer Index
                                 </RouterLink>
                             </div>
                         </div>
@@ -52,32 +51,31 @@ const StoreCustomar = () => {
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-
-                            <vee-form :validation-schema="schema" enctype="multipart/form-data" @submit="StoreCustomar">
+                            <vee-form :validation-schema="schema" enctype="multipart/form-data" @submit="UpdateCustomer">
                                 <div class="row">
                                     <div class="form-group col-md-6">
                                         <label for="name">Name</label>
-                                        <vee-field type="text" v-model="formData.name" name="name" class="form-control"
-                                            id="name" placeholder="Enter customar name" />
+                                        <vee-field type="text" v-model="customerStore.editForm.name" name="name" class="form-control"
+                                            id="name" placeholder="Enter customer name" />
                                         <ErrorMessage name="name" />
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="name">Email</label>
-                                        <vee-field type="text" v-model="formData.email" name="email" class="form-control"
-                                            id="email" placeholder="Enter customar email" />
+                                        <label for="code">Email</label>
+                                        <vee-field type="text" v-model="customerStore.editForm.email" name="email" class="form-control"
+                                            id="email" placeholder="Enter customer email" />
                                         <ErrorMessage name="email" />
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="name">Phone</label>
-                                        <vee-field type="text" v-model="formData.phone" name="phone" class="form-control"
-                                            id="phone" placeholder="Enter customar phone" />
+                                        <label for="code">Phone</label>
+                                        <vee-field type="text" v-model="customerStore.editForm.phone" name="phone" class="form-control"
+                                            id="phone" placeholder="Enter customer phone" />
                                         <ErrorMessage name="phone" />
                                     </div>
                                     
                                 </div>
                                 <div class="form-group mt-2">
 
-                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                    <button type="submit" class="btn btn-primary">Update</button>
                                 </div>
                             </vee-form>
                         </div>
