@@ -60,12 +60,14 @@ class SalaryRepository implements SalaryInterface
         ]);
 
         $staff = User::find($data->staff_id);
+        $admins = User::admin()->get();
         $details = [
             'subject' => "Salary Disbursed for the $data->month / $data->year",
             'message' => "Dear $staff->name, your salary for the month: $data->month / $data->year has been disbursed.
             Please collect the cheque from accounts department"
         ];
         Notification::send($staff, new SalaryPaid($details));
+        Notification::send($admins, new SalaryPaid($details));
 
         return $data;
     }
@@ -98,6 +100,19 @@ class SalaryRepository implements SalaryInterface
             'amount' => $request_data->amount,
             'type' => $request_data->type
         ]);
+
+         /* Send Notifications to Staff and Admin */
+         $staff = User::find($request_data->staff_id);
+         $admins = User::admin()->get();
+
+         $details = [
+             'subject' => "Salary Disbursed for the $data->month / $data->year",
+             'message' => "Dear $staff->name, your salary for the month: $data->month / $data->year has been disbursed.
+             Please collect the cheque from accounts department"
+         ];
+
+         Notification::send($staff, new SalaryPaid($details));
+         Notification::send($admins, new SalaryPaid($details));
 
         return $data;
     }

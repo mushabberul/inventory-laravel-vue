@@ -7,6 +7,7 @@ use App\Traits\ApiResponse;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Resources\CategoryResource;
+use App\Models\User;
 use Illuminate\Support\Facades\Validator;
 use App\Repositories\Category\CategoryInterface;
 

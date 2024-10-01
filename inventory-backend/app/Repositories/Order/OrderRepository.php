@@ -18,7 +18,7 @@ class OrderRepository implements OrderInterface
      */
     public function all()
     {
-        $data = Order::with('order_details')
+        $data = Order::with('order_details','customer')
             ->latest()
             ->get();
         return $data;
@@ -30,7 +30,7 @@ class OrderRepository implements OrderInterface
      */
     public function allWithPagination($per_page)
     {
-        $data = Order::with('order_details')
+        $data = Order::with('order_details','customer')
             ->when(request('transaction_number'), function ($query) {
                 $query->where('transaction_number', request('transaction_number'));
             })
@@ -45,15 +45,16 @@ class OrderRepository implements OrderInterface
     public function store($request_data)
     {
         $request_data = (object)$request_data;
+   
 
        // Check Customer Already exists
-    //    dd($request_data);
+
        $customer_mobile = $request_data->customer_mobile;
 
        $customer = Customer::customer()->where(['phone' => $customer_mobile])->first();
        if(!$customer){
            $customer = Customer::create([
-               'name' => 'walk in customer',
+               'name' => $request_data->customer_name ??'walk in customer',
                'email' => '',
                'role_id' => Customer::CUSTOMER,
                'phone' => $customer_mobile,

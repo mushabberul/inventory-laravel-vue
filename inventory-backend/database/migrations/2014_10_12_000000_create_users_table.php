@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('role_id')->default(2)->comment="1:Admin,2:Stuff,3:Customer,4:Supplier";
             $table->string('name');
-            $table->string('email')->unique()->nullable();
-            $table->string('phone')->unique()->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->unique();
             $table->string('nid')->nullable();
             $table->string('address')->nullable();
             $table->string('file')->nullable();

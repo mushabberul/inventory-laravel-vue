@@ -36,7 +36,11 @@ Route::middleware('auth:sanctum')->group(function(){
     //General Setting
     Route::apiResource('system-setting',SystemSettingController::class)->only(['index','update']);
     //Dashboard Info
-    Route::get('dashboard',[DashboardController::class,'dashboard']);
+    Route::controller(DashboardController::class)->group(function(){
+        Route::get('dashboard','dashboard');
+        Route::get('get-notifications','getNotifications');
+        Route::get('mark-as-readall','makeAsReadAll');
+    });
     //Category
     Route::post('category-status/{id}',[CategoryController::class,'status']);
     Route::get('all-categories',[CategoryController::class,'allCategories']);

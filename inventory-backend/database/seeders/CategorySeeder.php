@@ -39,6 +39,22 @@ class CategorySeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'Woman',
+                'slug' => Str::slug('woman'),
+                'code'=>104,
+                'status' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'Grocery',
+                'slug' => Str::slug('Grocery'),
+                'code'=>105,
+                'status' => '1',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

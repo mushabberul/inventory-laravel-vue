@@ -46,6 +46,7 @@ class OrderController extends Controller
     {
         $validated = Validator::make($request->all(), [
             'customer_mobile' => 'required',
+            'customer_name' => 'nullable',
             'pay_amount' => 'required|numeric|min:0',
             'due_amount' => 'required|numeric|min:0',
             'subtotal' => 'required|integer|min:0',
