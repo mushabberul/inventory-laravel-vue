@@ -2,7 +2,7 @@
 
 import MenuBar from './MenuBar.vue';
 import Profile from '@/components/Profile.vue';
-import Notification from '@/components/Notification.vue';
+// import Notification from '@/components/Notification.vue';
 </script>
 
 <template>
@@ -41,7 +41,7 @@ import Notification from '@/components/Notification.vue';
 
             </div>
             <div class="d-flex">
-                <div class="dropdown d-inline-block">
+                <!-- <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item noti-icon" data-bs-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                         <i class="bx bx-search icon-sm"></i>
@@ -57,17 +57,17 @@ import Notification from '@/components/Notification.vue';
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
 
 
                 <!-- Notification -->
-                <Notification />
+                <!-- <Notification />
 
                 <div class="dropdown d-inline-block">
                     <button type="button" class="btn header-item noti-icon right-bar-toggle" id="right-bar-toggle">
                         <i class="bx bx-cog icon-sm"></i>
                     </button>
-                </div>
+                </div> -->
 
                 <!-- Profile -->
                 <Profile />

@@ -38,7 +38,7 @@ let orderModal = ref(null);
 let orderModalObj = null;
 
 const schema = reactive({
-    customer_mobile: 'required|min:11|max:14',
+    customer_mobile: 'required',
     payment_method: 'required',
     due_amount: 'required',
     pay_amount: 'required',
@@ -74,12 +74,13 @@ const cartFormData = reactive({
     subtotal:0
 });
 const orderFormData =reactive({
-    'customer_phone':null,
+    'customer_mobile':null,
     'pay_amount':0,
     'due_amount':0,
     'subtotal':0,
     'discount':0,
     'total':0,
+    'customer_name':null,
     'payment_method':'cash',
 });
 //All methods
@@ -91,12 +92,13 @@ const resetCartFormData =() =>{
     cartFormData.subtotal=0;
 }
 const resetOrderFormData =() =>{
-    orderFormData.customer_phone=null;
+    orderFormData.customer_mobile=null;
     orderFormData.pay_amount=0;
     orderFormData.due_amount=0;
     orderFormData.subtotal=0;
     orderFormData.discount=0;
     orderFormData.total=0;
+    orderFormData.customer_name=null;
     orderFormData.payment_method='cash';
 }
 
@@ -119,7 +121,7 @@ const deleteFromCart = (card_id)=>{
 }
 
 const orderConfirmModal =()=>{
-    console.log(cartStore.subtotal)
+
     orderFormData.subtotal = parseFloat(cartStore.subtotal);
     orderFormData.due_amount =parseFloat(cartStore.subtotal);
     orderFormData.pay_amount=parseFloat(cartStore.subtotal);
@@ -137,8 +139,6 @@ const confirmOrder = ()=>{
 }
 //Hooks & Computed
 onMounted(()=>{
-   
-
     cartModalObj = new Modal(cartModal.value);
     orderModalObj = new Modal(orderModal.value);
     categoryStore.getAllCategories();
@@ -263,7 +263,7 @@ watch(
                             <a class="" href="#" @click.prevent="openCartModal(product)">
                                 <div class="card">
                                     <div class="card-content">
-                                        <img :src="base_url+product.file" class="card-img-top img-fluid" width="50%" height="50%" alt="Product Image">
+                                        <img :src="base_url+product.file" class="card-img-top img-fluid" style="width: 247px; height: 198px;" alt="Product Image">
                                         <div class="card-body text-center">
                                             <h4 class="card-title">{{ product.name }}</h4>
                                             <p>{{ product.sell_price }}</p>
@@ -323,8 +323,8 @@ watch(
                                 </div>
                                 <div class="row py-2">
                                     <div class="col-md-6">
-                                        <label for="barcode">Bar Code</label>
-                                        <img :src="productStore.product?.barcode" id="barcode" alt=" Bar code" class="img-fluid">
+                                        <label for="barcode">Bar Code</label><br />
+                                        <img :src="config.base_url+productStore.product?.barcode" id="barcode" alt=" Bar code" class="img-fluid">
                                     </div>
                                     <div class="col-md-6">
                                         <label for="subtotal">Sub Total</label>
@@ -357,6 +357,13 @@ watch(
                 <div class="modal-body">
                    
                     <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="customer-name" class="form-label"> Customer Name</label>
+                            <vee-field type="text" name="customer_name" v-model="orderFormData.customer_name" class="form-control"
+                            placeholder="Please enter customer Name"
+                            />
+                            <ErrorMessage class="text-danger" name="customer_name" />
+                        </div>
                         <div class="col-md-12 mb-3">
                             <label for="customer-mobile" class="form-label"> Customer Mobile</label>
                             <vee-field type="tel" name="customer_mobile" v-model="orderFormData.customer_mobile" class="form-control"

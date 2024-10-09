@@ -26,7 +26,7 @@
                             <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-pages">
-
+                            <!-- Category Management  -->
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">
@@ -40,6 +40,7 @@
                                         Inbox</RouterLink>
                                 </div>
                             </div>
+                            <!-- Brand Management  -->
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">
@@ -53,6 +54,7 @@
                                         Inbox</RouterLink>
                                 </div>
                             </div>
+                            <!-- Supplier Management  -->
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">
@@ -66,6 +68,7 @@
                                         Inbox</RouterLink>
                                 </div>
                             </div>
+                            <!-- Product Management  -->
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">
@@ -79,6 +82,7 @@
                                         Inbox</RouterLink>
                                 </div>
                             </div>
+                            <!-- Salary Management  -->
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">
@@ -92,6 +96,7 @@
                                         Inbox</RouterLink>
                                 </div>
                             </div>
+                            <!-- Expense Category Management  -->
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">
@@ -105,6 +110,7 @@
                                         Inbox</RouterLink>
                                 </div>
                             </div>
+                            <!-- Expense Management  -->
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
                                     role="button">
@@ -118,6 +124,19 @@
                                         Inbox</RouterLink>
                                 </div>
                             </div>
+                            <!-- Sale History  -->
+                            <div class="dropdown">
+                                <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-email"
+                                    role="button">
+                                    <span data-key="t-email">Sale History</span>
+                                    <div class="arrow-down"></div>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="topnav-email">
+                                    
+                                    <RouterLink :to="{ name: 'order.index' }" class="dropdown-item" data-key="t-inbox">
+                                        Inbox</RouterLink>
+                                </div>
+                            </div>
                         </div>
                     </li>
 
@@ -128,6 +147,7 @@
                             <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-components">
+                            <!-- Staff Management  -->
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-form"
                                     role="button">
@@ -152,6 +172,7 @@
                             <div class="arrow-down"></div>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="topnav-more">
+                            <!-- Customer Management  -->
                             <div class="dropdown">
                                 <a class="dropdown-item dropdown-toggle arrow-none" href="#" id="topnav-pricing"
                                     role="button">
@@ -165,7 +186,6 @@
                                         Inbox</RouterLink>
                                 </div>
                             </div>
-
                         </div>
                     </li>
 

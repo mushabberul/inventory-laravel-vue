@@ -56,34 +56,41 @@ onMounted(()=>{
                                     <div class="col">
                                         <div class="mt-md-0 py-3 px-4 mx-2">
                                             <p class="text-white-50 mb-2 text-truncate">Total Product </p>
-                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.product_count}}</h3>
+                                             <h3 class="text-white mb-0">{{dashboardStore.dashboardInfo.product_count}}</h3>
                                         </div>
                                     </div><!-- end col -->
 
                                     <div class="col">
                                         <div class="mt-3 mt-md-0 py-3 px-4 mx-2">
                                             <p class="text-white-50 mb-2 text-truncate">Total Brand</p>
-                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.brand_count}}</h3>
+                                            <h3 class="text-white mb-0">{{dashboardStore.dashboardInfo.brand_count}}</h3>
                                         </div>
                                     </div><!-- end col -->
                                     <div class="col">
                                         <div class="mt-3 mt-md-0 py-3 px-4 mx-2">
                                             <p class="text-white-50 mb-2 text-truncate">Total Category</p>
-                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.category_count}}</h3>
+                                            <h3 class="text-white mb-0">{{dashboardStore.dashboardInfo.category_count}}</h3>
                                         </div>
                                     </div><!-- end col -->
 
                                     <div class="col">
                                         <div class="mt-3 mt-md-0 py-3 px-4 mx-2">
                                             <p class="text-white-50 mb-2 text-truncate">Total Supplier</p>
-                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.supplier_count}}</h3>
+                                            <h3 class="text-white mb-0">{{dashboardStore.dashboardInfo.supplier_count}}</h3>
                                         </div>
                                     </div><!-- end col -->
 
                                     <div class="col">
                                         <div class="mt-3 mt-md-0 py-3 px-4 mx-2">
                                             <p class="text-white-50 mb-2 text-truncate">Total Customer</p>
-                                            <h3 class="text-white mb-0">{{dashboardStore.dashboards.customer_count}}</h3>
+                                            <h3 class="text-white mb-0">{{dashboardStore.dashboardInfo.customer_count}}</h3>
+                                        </div>
+                                    </div><!-- end col -->
+
+                                    <div class="col">
+                                        <div class="mt-3 mt-md-0 py-3 px-4 mx-2">
+                                            <p class="text-white-50 mb-2 text-truncate">Total Sale</p>
+                                            <h3 class="text-white mb-0">{{dashboardStore.dashboardInfo.sale_count}}</h3>
                                         </div>
                                     </div><!-- end col -->
 
